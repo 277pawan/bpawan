@@ -54,7 +54,7 @@ function Projects() {
           <img className="proj1" src={proj2} alt="project1"></img>
         </div>
         <div className="project2desc">
-          <div className="project2title">Sk template.</div>
+          <div className="project2title">Space Invader.</div>
           <div
             style={{
               fontSize: "20px",
@@ -64,11 +64,9 @@ function Projects() {
               padding: "10px",
             }}
           >
-            Sktemplate website is based on ecommerce which contains some
-            templates based on Html ,Css ,Javascript and react and it allows to
-            downloading the templates option on the bases of subscription plan
-            created by using stripe integration , Google authentication using
-            Firebase ,Reactjs ,HTML5 element(Canvas).
+            This is a Spaceinvader Game made by HTML5 element (canvas) totally
+            manuplated with Javascript with sound effect and different kind of
+            animation (a race for scoring more and more).
           </div>
           <a href="https://skplate.vercel.app/" target="_blank">
             {" "}
