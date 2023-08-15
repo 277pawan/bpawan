@@ -14,9 +14,9 @@ function Navbar() {
     sethamtrue(!hamtrue);
   };
   const about = () => {
-    let scrollheader = 800;
+    let scrollheader = 750;
     if (window.innerWidth < 768) {
-      scrollheader = 750;
+      scrollheader = 700;
     }
     window.scrollTo({
       top: scrollheader,
@@ -25,9 +25,9 @@ function Navbar() {
     sethamtrue(!hamtrue);
   };
   const projects = () => {
-    let scrollheader = 1700;
+    let scrollheader = 1630;
     if (window.innerWidth < 768) {
-      scrollheader = 2000;
+      scrollheader = 1930;
     }
     window.scrollTo({
       top: scrollheader,
@@ -36,9 +36,9 @@ function Navbar() {
     sethamtrue(!hamtrue);
   };
   const contact = () => {
-    let scrollToPosition = 4000;
+    let scrollToPosition = 3900;
     if (window.innerWidth <= 768) {
-      scrollToPosition = 6400;
+      scrollToPosition = 6300;
     }
 
     window.scrollTo({
