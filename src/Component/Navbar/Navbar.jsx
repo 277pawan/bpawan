@@ -11,6 +11,7 @@ function Navbar() {
     sethamtrue(!hamtrue);
   }
   const home = () => {
+    window.scrollTo(0, 0);
     sethamtrue(!hamtrue);
   };
   const about = () => {
@@ -65,7 +66,7 @@ function Navbar() {
           <div className="name">Pawan Bisht.</div>
         </div>
         <div className="navbox2">
-          <div className="navbutton">
+          <div onClick={home} className="navbutton">
             {" "}
             <Link style={{ textDecoration: "none", color: "black" }} to="/">
               Home
