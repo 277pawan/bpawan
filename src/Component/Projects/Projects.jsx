@@ -68,7 +68,7 @@ function Projects() {
             manipulated with Javascript with sound effect and different kind of
             animation (a race for scoring more and more).
           </div>
-          <a href="https://skplate.vercel.app/" target="_blank">
+          <a href="https://277pawan.github.io/Spaceinvaders/" target="_blank">
             {" "}
             <button className="headerbutton">Case Study</button>
           </a>
