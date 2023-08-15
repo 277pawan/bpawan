@@ -65,7 +65,7 @@ function Projects() {
             }}
           >
             This is a Spaceinvader Game made by HTML5 element (canvas) totally
-            manuplated with Javascript with sound effect and different kind of
+            manipulated with Javascript with sound effect and different kind of
             animation (a race for scoring more and more).
           </div>
           <a href="https://skplate.vercel.app/" target="_blank">
