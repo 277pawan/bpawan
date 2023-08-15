@@ -16,7 +16,7 @@ function Navbar() {
   const about = () => {
     let scrollheader = 800;
     if (window.innerWidth < 768) {
-      scrollheader = 700;
+      scrollheader = 750;
     }
     window.scrollTo({
       top: scrollheader,
@@ -38,7 +38,7 @@ function Navbar() {
   const contact = () => {
     let scrollToPosition = 4000;
     if (window.innerWidth <= 768) {
-      scrollToPosition = 6600;
+      scrollToPosition = 6400;
     }
 
     window.scrollTo({
