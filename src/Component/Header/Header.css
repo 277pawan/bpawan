@@ -1,0 +1,117 @@
+.headercontainer{
+    position: relative;
+top:73px;
+background: linear-gradient(to right,rgba(245,245,245,.8),rgba(245,245,245,.8)),url(../../Assets/back.svg);
+    background-image: center;
+    background: no repeat;
+    height: 90vh;
+    /* opacity: 0.5; */
+    filter: blur();
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.headername{
+    font-size: 6rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-align: center;
+    color: #111;
+    font-weight: 800;
+}
+.headerdesc{
+    color: #333;
+    font-size: 1.4rem;
+    text-align: center;
+    width: 50%;
+    line-height: 1.6;
+}
+.headerbutton{
+    background: #7843e9;
+    cursor: pointer;
+    color: #fff;
+    font-size: 20px;
+    height: 70px;
+    width: 210px;
+    border: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+    font-weight: 700;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px 0 rgba(0,0,0,.15);
+    transition: transform .3s;
+}
+.headerbutton:hover{
+    transform: scale(1.09);
+}
+.in-view{
+    animation: intersect 1s ease-in-out;
+  }
+  @keyframes intersect {
+    from{
+      transform: translateY(30%);
+      opacity: 0;
+    }
+    to{
+      transform: translateY(0%);
+      opacity: 1;
+    }
+    
+  }
+.socialbuttons{
+    position:absolute;
+    top:30%;
+    left: 0%;
+    height: 250px;
+    width: 65px;
+    cursor: pointer;
+    background-color: white;
+    box-shadow: 0 5px 15px 10px rgba(153, 19, 19, 0.15);
+}
+.social{
+    height: 60px;
+    padding-top: 10px;
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+.social:hover{
+    transform:scale(1.07);
+}
+@media screen and (max-width:768px) {
+    .headercontainer{
+        position: relative;
+    top:73px;
+    background: linear-gradient(to right,rgba(245,245,245,.8),rgba(245,245,245,.8)),url(../../Assets/back.svg);
+        background-image: center;
+        background: no repeat;
+        height: 75vh;
+        /* opacity: 0.5; */
+        filter: blur();
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .headername{
+    font-size: 3.0rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-align: center;
+    color: #111;
+    width: 100%;
+    font-weight: 800;
+    margin-top: 10px;
+}
+.headerdesc{
+    color: #333;
+    font-size: 1.4rem;
+    text-align: center;
+    width: 100%;
+    line-height: 1.6;
+}
+.socialbuttons{
+    display: none;
+}
+}
