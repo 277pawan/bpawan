@@ -43,10 +43,49 @@ function Projects() {
             cart,add to wishlist), and with email service. made by using
             Javascript ,Reactjs ,Nodejs, Expressjs, Firebase.
           </div>
-          <a target="_blank" href="https://cure-ten.vercel.app/">
-            {" "}
-            <button className="headerbutton">Case Study</button>
-          </a>
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <a
+              target="_blank"
+              href="https://github.com/277pawan/bpawan"
+              rel="noopener noreferrer"
+            >
+              {" "}
+              <svg
+                className="svggithub"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                viewBox="0 -2 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+              </svg>
+            </a>
+            <a
+              target="_blank"
+              href="https://cure-ten.vercel.app/"
+              rel="noopener noreferrer"
+            >
+              <svg
+                className="svg"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                viewBox="0 -1 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
       <div className="projectbox2">
@@ -68,10 +107,49 @@ function Projects() {
             manipulated with Javascript with sound effect and different kind of
             animation (a race for scoring more and more).
           </div>
-          <a href="https://277pawan.github.io/Spaceinvaders/" target="_blank">
-            {" "}
-            <button className="headerbutton">Case Study</button>
-          </a>
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <a
+              target="_blank"
+              href="https://github.com/277pawan/Spaceinvaders"
+              rel="noopener noreferrer"
+            >
+              {" "}
+              <svg
+                className="svggithub"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                viewBox="0 -2 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+              </svg>
+            </a>
+            <a
+              target="_blank"
+              href="https://277pawan.github.io/Spaceinvaders/"
+              rel="noopener noreferrer"
+            >
+              <svg
+                className="svg"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                viewBox="0 -1 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>{" "}
       <div className="projectbox2">
@@ -94,10 +172,49 @@ function Projects() {
             thing will be done on the client side only with predefined users.
             you can check it by using the id(277pawan) and pin(1111).
           </div>
-          <a href="https://277pawan.github.io/Bankist/" target="_blank">
-            {" "}
-            <button className="headerbutton">Case Study</button>
-          </a>
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <a
+              target="_blank"
+              href="https://github.com/277pawan/Bankist"
+              rel="noopener noreferrer"
+            >
+              {" "}
+              <svg
+                className="svggithub"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                viewBox="0 -2 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+              </svg>
+            </a>
+            <a
+              target="_blank"
+              href="https://277pawan.github.io/Bankist/"
+              rel="noopener noreferrer"
+            >
+              <svg
+                className="svg"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                viewBox="0 -1 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>{" "}
       <div className="projectbox2">
@@ -119,10 +236,49 @@ function Projects() {
             translator features in more then 17 languages with phenotics made by
             using HTML, CSS, Javascript.
           </div>
-          <a href="https://bdictionary.netlify.app/" target="_blank">
-            {" "}
-            <button className="headerbutton">Case Study</button>
-          </a>
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <a
+              target="_blank"
+              href="https://github.com/277pawan/Dictionary."
+              rel="noopener noreferrer"
+            >
+              {" "}
+              <svg
+                className="svggithub"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                viewBox="0 -2 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+              </svg>
+            </a>
+            <a
+              target="_blank"
+              href="https://bdictionary.netlify.app/"
+              rel="noopener noreferrer"
+            >
+              <svg
+                className="svg"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                viewBox="0 -1 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
     </div>

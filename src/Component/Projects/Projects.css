@@ -13,6 +13,23 @@
     justify-content: center;
     align-items: center;
 }
+.svggithub{
+    background-color: #7843e9;
+    color: white;
+    padding: 5px;
+    border-radius: 50px;
+    height: 40px;
+    margin: 0px 5px 0px 5px;
+}
+.svg{
+    background-color:  #7843e9;
+    color: white;
+    padding: 5px;
+    border-radius: 50px;
+    height: 40px;
+    margin: 0px 5px 0px 5px;
+
+}
 .project1title
 {
     margin-top: 50px;
