@@ -4,7 +4,7 @@ top:73px;
 background: linear-gradient(to right,rgba(245,245,245,.8),rgba(245,245,245,.8)),url(../../Assets/back.svg);
     background-image: center;
     background: no repeat;
-    height: 90vh;
+    height: auto;
     /* opacity: 0.5; */
     filter: blur();
     display: flex;
@@ -13,6 +13,7 @@ background: linear-gradient(to right,rgba(245,245,245,.8),rgba(245,245,245,.8)),
     align-items: center;
 }
 .headername{
+    margin-top: 120px;
     font-size: 6rem;
     text-transform: uppercase;
     letter-spacing: 3px;
@@ -42,6 +43,7 @@ background: linear-gradient(to right,rgba(245,245,245,.8),rgba(245,245,245,.8)),
     border-radius: 5px;
     box-shadow: 0 5px 15px 0 rgba(0,0,0,.15);
     transition: transform .3s;
+    margin-bottom: 120px;
 }
 .headerbutton:hover{
     transform: scale(1.09);

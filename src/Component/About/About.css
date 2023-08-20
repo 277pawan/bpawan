@@ -54,7 +54,7 @@ letter-spacing: 10px;
 
 }
 .aboutbox3{
-    height: 600px;
+    height: auto;
     width:40vw;
     background-color: #fafafa;
     margin-bottom: 20px;
@@ -130,7 +130,7 @@ letter-spacing: 10px;
     margin-bottom: 0px;
 }
 .aboutbox3{
-    height: 480px;
+    height: auto;
     width:100%;
     background-color: #fafafa;
 }  
