@@ -39,7 +39,7 @@ function Navbar() {
   const contact = () => {
     let scrollToPosition = 3900;
     if (window.innerWidth <= 768) {
-      scrollToPosition = 7000;
+      scrollToPosition = 6500;
     }
 
     window.scrollTo({

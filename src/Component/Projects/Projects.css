@@ -86,5 +86,11 @@ transform: scale(1.02);
     .proj1{
         height: 520px;
         width: 100%;
-    }   
+    }  
+    .project1desc{
+        width: 100%;
+        text-align: center;
+        font-size: 22px;
+        margin-bottom: 50px;
+    } 
 }
