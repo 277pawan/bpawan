@@ -15,7 +15,7 @@ function Navbar() {
     sethamtrue(!hamtrue);
   };
   const about = () => {
-    let scrollheader = 750;
+    let scrollheader = 720;
     if (window.innerWidth < 768) {
       scrollheader = 680;
     }
@@ -26,7 +26,7 @@ function Navbar() {
     sethamtrue(!hamtrue);
   };
   const projects = () => {
-    let scrollheader = 1630;
+    let scrollheader = 1520;
     if (window.innerWidth < 768) {
       scrollheader = 2000;
     }
