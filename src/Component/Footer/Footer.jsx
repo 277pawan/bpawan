@@ -30,7 +30,7 @@ function Footer() {
                 <img className="social" src={linkdin} alt="Linkdin" />
               </abbr>
             </a>
-            <a href="/PawanBishtresume.pdf" download>
+            <a href="/PawanBishtResume.pdf" download>
               {" "}
               <abbr title="Resume">
                 <img className="social" src={resume} alt="resume" />
