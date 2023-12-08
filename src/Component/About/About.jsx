@@ -1,8 +1,103 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./About.css";
+import { gsap, Power2 } from "gsap";
+import { ScrollTrigger } from "gsap/all";
 function About() {
   // const [isintersecting, setintersection] = useState(false);
   const cannref = useRef(null);
+  const buttonref0 = useRef(null);
+  const buttonref1 = useRef(null);
+  const buttonref2 = useRef(null);
+  const buttonref3 = useRef(null);
+  const buttonref4 = useRef(null);
+  const buttonref5 = useRef(null);
+  const buttonref6 = useRef(null);
+  const buttonref7 = useRef(null);
+  const buttonref8 = useRef(null);
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const t1 = gsap.timeline({
+      duration: 1,
+      scrollTrigger: {
+        trigger: buttonref0.current,
+        toggleActions: "play",
+      },
+    });
+
+    t1.to(
+      buttonref0.current,
+      {
+        opacity: 1,
+        ease: Power2.easeInOut,
+      },
+      0.2
+    )
+      .to(
+        buttonref1.current,
+        {
+          opacity: 1,
+          ease: Power2.easeInOut,
+        },
+        0.2
+      )
+      .to(
+        buttonref2.current,
+        {
+          opacity: 1,
+          ease: Power2.easeInOut,
+        },
+        0.2
+      )
+      .to(
+        buttonref3.current,
+        {
+          opacity: 1,
+          ease: Power2.easeInOut,
+        },
+        0.2
+      )
+      .to(
+        buttonref4.current,
+        {
+          opacity: 1,
+          ease: Power2.easeInOut,
+        },
+        0.2
+      )
+      .to(
+        buttonref5.current,
+        {
+          opacity: 1,
+          ease: Power2.easeInOut,
+        },
+        0.2
+      )
+      .to(
+        buttonref6.current,
+        {
+          opacity: 1,
+          ease: Power2.easeInOut,
+        },
+        0.2
+      )
+      .to(
+        buttonref7.current,
+        {
+          opacity: 1,
+          ease: Power2.easeInOut,
+        },
+        0.2
+      )
+      .to(
+        buttonref8.current,
+        {
+          opacity: 1,
+          ease: Power2.easeInOut,
+        },
+        0.2
+      );
+  });
   useEffect(() => {
     const observerCallback = (entries) => {
       entries.forEach((entry) => {
@@ -89,7 +184,7 @@ function About() {
             <button
               ref={cannref}
               onClick={contactbutton}
-              className="headerbutton"
+              className="aboutbutton"
             >
               Contact
             </button>
@@ -98,14 +193,34 @@ function About() {
         <div className="aboutbox3">
           <div className="skills">My Skills</div>
           <div className="skillset">
-            <button className="skillbutton">HTML</button>
-            <button className="skillbutton">CSS</button>
-            <button className="skillbutton">Javascript</button>
-            <button className="skillbutton">Reactjs</button>
-            <button className="skillbutton">Nodejs</button>
-            <button className="skillbutton">Expressjs</button>
-            <button className="skillbutton">Firebase</button>
-            <button className="skillbutton">C++</button>
+            <button ref={buttonref0} className="skillbutton">
+              HTML
+            </button>
+            <button ref={buttonref1} className="skillbutton">
+              CSS
+            </button>
+            <button ref={buttonref2} className="skillbutton">
+              Javascript
+            </button>
+            <button ref={buttonref3} className="skillbutton">
+              Reactjs
+            </button>
+            <button ref={buttonref4} className="skillbutton">
+              Nodejs
+            </button>
+            <button ref={buttonref5} className="skillbutton">
+              Expressjs
+            </button>
+            <button ref={buttonref6} className="skillbutton">
+              Firebase
+            </button>
+            <button ref={buttonref7} className="skillbutton">
+              Mongodb
+            </button>
+
+            <button ref={buttonref8} className="skillbutton">
+              C++
+            </button>
           </div>
         </div>
       </div>
