@@ -16,15 +16,14 @@ function Header() {
   }
   return (
     <div className="headercontainer">
-      <div className="headername">Hey, I'm Pawan Bisht.</div>
+      <div className="headername">Hi, i'm Pawan Bisht</div>
       <div className="headerdesc">
-        A frontend + backend Web Developer building the frontend of website and
-        web application that leads to the success of the overall products.
+        A Frontend focused Web Developer + backend developer building the
+        Frontend of Websites and Web Applications that leads to the success of
+        the overall product{" "}
       </div>
-      <div style={{ paddingBottom: "100px", paddingTop: "30px" }}>
-        <button onClick={projectbutton} className="headerbutton">
-          Projects
-        </button>
+      <div style={{ padding: "20px" }}>
+        <button className="headerbutton">More info ⬇️</button>
       </div>
       <div className="socialbuttons">
         <abbr title="Github">
