@@ -25,13 +25,13 @@ function Header() {
         headerdescref.current,
         1.5,
         { css: { opacity: 1, ease: Power2.easeInOut } },
-        1.4
+        0.6
       )
       .to(
         headernameref.current,
         2,
         { css: { opacity: 1, ease: Power2.easeInOut } },
-        2
+        1
       );
   });
   function projectbutton() {
