@@ -83,13 +83,10 @@ background: linear-gradient(to right,rgba(245,245,245,.8),rgba(245,245,245,.8)),
 }
 @media screen and (max-width:768px) {
     .headercontainer{
-        position: relative;
-    top:63px;
     background: linear-gradient(to right,rgba(245,245,245,.8),rgba(245,245,245,.8)),url(../../Assets/back.svg);
         background-image: center;
         background: no repeat;
-        height: 75vh;
-        /* opacity: 0.5; */
+        height: auto;
         filter: blur();
         display: flex;
         flex-direction: column;
