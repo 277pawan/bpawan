@@ -92,7 +92,7 @@ function Contact() {
           </div>
         </div>
         <>
-          <button onClick={facebookfun}>Facebook</button>{" "}
+          {/* <button onClick={facebookfun}>Facebook</button>{" "} */}
           {/* Correct onClick handler */}
           <form className="contactbox2" onSubmit={sendmessage}>
             <label>Name</label>
