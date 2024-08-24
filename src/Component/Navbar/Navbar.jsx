@@ -55,9 +55,9 @@ function Navbar() {
           {" "}
           <img
             style={{
-              height: "55px",
-              width: "55px",
-              borderRadius: "50px",
+              height: "44px",
+              width: "44px",
+              borderRadius: "50%",
               padding: "6px",
             }}
             src={beast}

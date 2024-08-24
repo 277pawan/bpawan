@@ -18,12 +18,12 @@
     align-items: center;
 }
 .name{
-    font-size: 30px;
-    font-family: itim;
+    font-size: 24px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
     font-weight: 600;
-text-indent: 10px;
-text-transform: uppercase;
-cursor: pointer;
+    text-indent: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
 }
 .name:hover{
     color: #7843e9;
