@@ -1,58 +1,23 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 import beast from "../../Assets/beast.png";
 import close from "../../Assets/close.png";
 import open from "../../Assets/open.png";
 
-import { Link } from "react-router-dom";
 function Navbar() {
   const [hamtrue, sethamtrue] = useState(false);
-  function hambox() {
-    sethamtrue(!hamtrue);
-  }
-  const home = () => {
-    window.scrollTo(0, 0);
-    sethamtrue(!hamtrue);
-  };
-  const about = () => {
-    let scrollheader = 720;
-    if (window.innerWidth < 768) {
-      scrollheader = 680;
-    }
-    window.scrollTo({
-      top: scrollheader,
-      behavior: "smooth",
-    });
-    sethamtrue(!hamtrue);
-  };
-  const projects = () => {
-    let scrollheader = 1520;
-    if (window.innerWidth < 768) {
-      scrollheader = 2000;
-    }
-    window.scrollTo({
-      top: scrollheader,
-      behavior: "smooth",
-    });
-    sethamtrue(!hamtrue);
-  };
-  const contact = () => {
-    let scrollToPosition = 3900;
-    if (window.innerWidth <= 768) {
-      scrollToPosition = 6500;
-    }
 
-    window.scrollTo({
-      top: scrollToPosition,
-      behavior: "smooth",
-    });
-    sethamtrue(!hamtrue);
+  // Function to scroll to the section by ID
+  const scrollToSection = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    sethamtrue(false); // Close the menu after clicking
   };
+
   return (
     <>
       <div id="navbarcontainer">
         <div className="navbox1">
-          {" "}
           <img
             style={{
               height: "44px",
@@ -62,28 +27,34 @@ function Navbar() {
             }}
             src={beast}
             alt="pawan"
-          ></img>
+          />
           <div className="name">Pawan Bisht.</div>
         </div>
+
         <div className="navbox2">
-          <div onClick={home} className="navbutton">
-            {" "}
-            <Link style={{ textDecoration: "none", color: "black" }} to="/">
+          <div onClick={() => scrollToSection("home")} className="navbutton">
+            <Link style={{ textDecoration: "none", color: "white" }} to="/">
               Home
             </Link>
           </div>
-
-          <div onClick={about} className="navbutton">
+          <div onClick={() => scrollToSection("about")} className="navbutton">
             About
           </div>
-          <div onClick={projects} className="navbutton">
+          <div
+            onClick={() => scrollToSection("projects")}
+            className="navbutton"
+          >
             Projects
           </div>
-          <div onClick={contact} className="navbuttonlast">
+          <div
+            onClick={() => scrollToSection("contact")}
+            className="navbuttonlast"
+          >
             Contact
           </div>
         </div>
-        <div onClick={hambox} className="hambox">
+
+        <div onClick={() => sethamtrue(!hamtrue)} className="hambox">
           <img
             style={{
               height: "50px",
@@ -94,31 +65,33 @@ function Navbar() {
               cursor: "pointer",
             }}
             src={hamtrue ? close : open}
-            alt="hamopen"
-          ></img>
+            alt="hamburger menu"
+          />
         </div>
       </div>
+
+      {/* Mobile Navigation Menu */}
       {hamtrue && (
         <div className="hammer">
-          <div onClick={home} className="home">
+          <div onClick={() => scrollToSection("home")} className="home">
             Home
           </div>
           <hr
             style={{ backgroundColor: "gray", height: "1px", width: "100vw" }}
-          ></hr>
-          <div onClick={projects} className="projects">
+          />
+          <div onClick={() => scrollToSection("projects")} className="projects">
             Projects
           </div>
           <hr
             style={{ backgroundColor: "gray", height: "1px", width: "100vw" }}
-          ></hr>
-          <div onClick={about} className="about">
+          />
+          <div onClick={() => scrollToSection("about")} className="about">
             About
           </div>
           <hr
             style={{ backgroundColor: "gray", height: "1px", width: "100vw" }}
-          ></hr>
-          <div onClick={contact} className="contact">
+          />
+          <div onClick={() => scrollToSection("contact")} className="contact">
             Contact
           </div>
         </div>

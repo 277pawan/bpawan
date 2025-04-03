@@ -1,87 +1,115 @@
-import React, { useEffect, useRef } from "react";
-import "./Header.css";
-import github1 from "../../Assets/github.svg";
-import linkdin1 from "../../Assets/linkedin.svg";
-import resume1 from "../../Assets/book.svg";
-import { gsap, Power2 } from "gsap";
-import CSSRulePlugin from "gsap/all";
+import { BackgroundBeams } from "../Helper.jsx";
+import { SparklesCore } from "./Sparkles";
+import { useRef, useEffect } from "react";
+import { motion } from "framer-motion";
+import { useState } from "react";
+
 function Header() {
+  const [heroSectionValue, setHeroSectionValue] = useState("");
   const headerbuttonref = useRef(null);
   const headerdescref = useRef(null);
-  const headernameref = useRef(null);
+  const intervalRef = useRef(null);
+
+  const arrayOfValues = [
+    "Performance.",
+    "Scalability.",
+    "Success.",
+    // "Backend Architect",
+    // "Tech Explorer",
+  ];
 
   useEffect(() => {
-    gsap.registerPlugin(CSSRulePlugin);
-    const t1 = new gsap.timeline();
-    t1.to(
-      headerbuttonref.current,
-      1.2,
-      {
-        css: { top: "0%", ease: Power2.easeInOut },
-      },
-      0.2
-    )
-      .to(
-        headerdescref.current,
-        1.5,
-        { css: { opacity: 1, ease: Power2.easeInOut } },
-        0.6
-      )
-      .to(
-        headernameref.current,
-        2,
-        { css: { opacity: 1, ease: Power2.easeInOut } },
-        1
-      );
-  });
-  function projectbutton() {
-    let scrollheader = 1700;
-    if (window.innerWidth < 768) {
-      scrollheader = 2000;
-    }
-    window.scrollTo({
-      top: scrollheader,
-      behavior: "smooth",
-    });
-  }
-  return (
-    <div className="headercontainer">
-      <div ref={headernameref} className="headername">
-        Hi, i'm Pawan Bisht
-      </div>
-      <div ref={headerdescref} className="headerdesc">
-        A Frontend focused Web Developer + backend developer building the
-        Frontend of Websites and Web Applications that leads to the success of
-        the overall product{" "}
-      </div>
-      <div style={{ padding: "20px" }}>
-        <button ref={headerbuttonref} className="headerbutton">
-          More info 👇
-        </button>
-      </div>
-      <div className="socialbuttons">
-        <abbr title="Github">
-          {" "}
-          <a href="https://github.com/277pawan">
-            {" "}
-            <img className="social" src={github1} alt="github" />
-          </a>
-        </abbr>
+    const arrayLength = arrayOfValues.length;
+    let wordLength = 0;
+    let index = 0;
+    let value = "";
 
-        <abbr title="Linkdin">
-          {" "}
-          <a href="https://www.linkedin.com/in/pawan-bisht-a943161b9/">
-            {" "}
-            <img className="social" src={linkdin1} alt="Linkdin" />
-          </a>
-        </abbr>
-        <abbr title="Resume">
-          {" "}
-          <a href="/PawanBishtresume.pdf" download>
-            {" "}
-            <img className="social" src={resume1} alt="resume" />
-          </a>
-        </abbr>
+    function handleDynamicvalue() {
+      let item = arrayOfValues[index];
+      if (item.length >= wordLength) {
+        typeWriter(item);
+      }
+    }
+
+    function typeWriter(item) {
+      let flag = 0;
+      intervalRef.current = setInterval(() => {
+        if (wordLength < item.length && flag === 0) {
+          value = value + item[wordLength++];
+          setHeroSectionValue(value);
+        } else {
+          flag = 1;
+          value = value.slice(0, -1);
+          setHeroSectionValue(value);
+          wordLength--;
+          if (wordLength === 0) {
+            clearInterval(intervalRef.current);
+            if (index === arrayLength - 1) {
+              index = 0;
+              handleDynamicvalue();
+            } else {
+              index++;
+              handleDynamicvalue();
+            }
+          }
+        }
+      }, 250); // Reduced the interval for smoother typing
+    }
+
+    handleDynamicvalue();
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, []); // Empty dependency array means this runs once on mount
+
+  return (
+    <div className="header-wrapper">
+      <BackgroundBeams />
+      <div className="h-[42rem] text-white w-full bg-black flex flex-col items-center justify-center overflow-hidden ">
+        <h1 className="md:text-7xl text-3xl lg:text-8xl font-bold text-center text-white relative z-20">
+          I'm Pawan Bisht
+        </h1>
+        <div className="w-[20rem] text-center sm:w-[40rem] h-40 relative">
+          <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-3/4 blur-sm" />
+          <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-3/4" />
+          <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] w-1/4 blur-sm" />
+          <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/4" />
+
+          <SparklesCore
+            background="transparent"
+            minSize={0.4}
+            maxSize={1}
+            particleDensity={1200}
+            className="w-full h-full"
+            particleColor="#FFFFFF"
+          />
+
+          <div className="flex justify-center items-center">
+            <div
+              ref={headerdescref}
+              className="headerdesc flex flex-wrap font-bold absolute top-4 z-20"
+            >
+              I'm a Full Stack Devleoper who brings ideas to life with clean,
+              efficient code. From dynamic frontends to robust backends, I craft
+              seamless digital experiences. Every project I build is designed
+              for {heroSectionValue}{" "}
+            </div>
+            <div className="absolute top-[12.5rem] sm:top-[6.5rem] z-30">
+              <motion.button
+                whileTap={{ scale: 0.9 }}
+                ref={headerbuttonref}
+                className="headerbutton py-4 px-8 rounded-md bg-[#7840e1]"
+              >
+                More info 👇
+              </motion.button>
+            </div>
+          </div>
+
+          <div className="absolute inset-0 w-full h-full bg-black [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]"></div>
+        </div>
       </div>
     </div>
   );
