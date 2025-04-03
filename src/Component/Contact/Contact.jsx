@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import dummyIMage from "../../Assets/beast.png";
 import PandaImage from "../../Assets/panda.png";
 import "./Contact.css";
 
@@ -81,7 +80,7 @@ function Contact() {
       ref={contactRef}
     >
       <div className="contactbox1">
-        <div className="text-lg md:text-4xl mb-4 text-center text-black dark:text-white max-w-full uppercase tracking-[0.5rem] font-bold">
+        <div className="text-lg md:text-4xl mb-4 text-center text-white max-w-full uppercase tracking-[0.5rem] font-bold">
           contact
         </div>
         <hr
@@ -98,49 +97,43 @@ function Contact() {
         </div>
       </div>
       <div className="container px-6 py-10 mx-auto">
-        <div className="lg:flex lg:items-center lg:-mx-10">
+        <div className="lg:flex lg:items-center text-white lg:-mx-10">
           <div className="lg:w-1/2 lg:mx-10">
-            <h1 className="text-2xl font-semibold text-gray-800 capitalize dark:text-white lg:text-3xl">
+            <h1 className="text-2xl font-semibold capitalize text-white  lg:text-3xl">
               Let's talk
             </h1>
             <form className="mt-12 relative" onSubmit={sendMessage}>
               <div className="-mx-2 md:items-center md:flex">
                 <div className="flex-1 px-2">
-                  <label className="block mb-1 text-md text-gray-600 dark:text-gray-200">
-                    Full Name
-                  </label>
+                  <label className="block mb-1 text-md">Full Name</label>
                   <input
                     type="text"
                     placeholder="John Doe"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="block w-full px-5 py-3 mt-1 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    className="block w-full px-5 py-3 mt-1 text-gray-300 border-gray-200 rounded-md placeholder-gray-600 bg-gray-900 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                     disabled={isLoading}
                   />
                 </div>
 
                 <div className="flex-1 px-2 mt-22 md:mt-0">
-                  <label className="block mb-1 text-md text-gray-600 dark:text-gray-200">
-                    Email address
-                  </label>
+                  <label className="block mb-1 text-md">Email address</label>
                   <input
                     type="email"
                     placeholder="johndoe@example.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="block w-full px-5 py-3 mt-1 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    className="block w-full px-5 py-3 mt-1 text-gray-300 border-gray-200 rounded-md placeholder-gray-600 bg-gray-900 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                     disabled={isLoading}
                   />
                 </div>
               </div>
 
               <div className="w-full mt-2">
-                <label className="block mb-1 text-md text-gray-600 dark:text-gray-200">
-                  Message
-                </label>
+                <label className="block mb-1 text-md">Message</label>
                 <textarea
-                  className="block w-full h-32 px-5 py-3 mt-1 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md md:h-56 dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                  className="block w-full h-32 px-5 py-3 mt-1 rounded-md md:h-56 placeholder-gray-600 bg-gray-900 text-gray-300 border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                   placeholder="Message"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
@@ -236,7 +229,7 @@ function Contact() {
                   />
                 </svg>
 
-                <span className="mx-2 text-gray-700 w-72 dark:text-gray-400">
+                <span className="mx-2 text-white w-72">
                   Dehradun, Uttrakhand 246149
                 </span>
               </p>
@@ -257,7 +250,7 @@ function Contact() {
                   />
                 </svg>
 
-                <span className="mx-2 text-gray-700 truncate w-72 dark:text-gray-400">
+                <span className="mx-2 text-white truncate w-72">
                   +91 9068509220
                 </span>
               </p>
@@ -278,14 +271,14 @@ function Contact() {
                   />
                 </svg>
 
-                <span className="mx-2 text-gray-700 truncate w-72 dark:text-gray-400">
+                <span className="mx-2 text-white truncate w-72">
                   bpawan277@gmail.com
                 </span>
               </p>
             </div>
 
             <div className="mt-4 w-80 md:mt-8">
-              <h3 className="text-gray-600 dark:text-gray-300">Follow me</h3>
+              <h3 className="text-white">Follow me</h3>
 
               <div className="flex mt-4 -mx-1.5">
                 {/* LinkedIn Icon */}
