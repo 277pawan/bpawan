@@ -8,7 +8,7 @@ function Experience() {
       content: (
         <div>
           <p
-            className="text-neutral-800 dark:text-neutral-200 text-sm md:text-xl font-normal mb-8"
+            className="text-white text-sm md:text-xl font-normal mb-8"
             style={{ fontFamily: "itim" }}
           >
             Since 2024, I have been working at Rubico IT, contributing to
@@ -52,7 +52,7 @@ function Experience() {
       title: "Early 2023",
       content: (
         <div>
-          <p className="text-neutral-800 dark:text-neutral-200 text-sm md:text-xl font-normal mb-8">
+          <p className="text-white text-sm md:text-xl font-normal mb-8">
             Completed a Udemy course on web development in early 2023, gaining
             hands-on experience with modern frameworks. Built personal projects
             showcasing frontend and backend skills in real-world applications.
@@ -95,23 +95,23 @@ function Experience() {
       title: "Service Now",
       content: (
         <div>
-          <p className="text-neutral-800 dark:text-neutral-200 text-xl md:text-xl font-medium mb-4">
+          <p className="text-white text-xl md:text-xl font-medium mb-4">
             Certified Application Developer (CAD).
           </p>
           <div className="mb-8" style={{ fontFamily: "itim" }}>
-            <div className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-sm md:text-xl">
+            <div className="flex gap-2 items-center text-white text-sm md:text-xl">
               ✅ Application Development Fundamentals
             </div>
-            <div className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-sm md:text-xl">
+            <div className="flex gap-2 items-center text-white text-sm md:text-xl">
               ✅ ServiceNow Studio & Scripting
             </div>
-            <div className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-sm md:text-xl">
+            <div className="flex gap-2 items-center text-white text-sm md:text-xl">
               ✅ Data Modeling & Database Design
             </div>
-            <div className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-sm md:text-xl">
+            <div className="flex gap-2 items-center text-white text-sm md:text-xl">
               ✅ Security & Access Control
             </div>
-            <div className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-sm md:text-xl">
+            <div className="flex gap-2 items-center text-white text-sm md:text-xl">
               ✅ Automated Workflows
             </div>
           </div>

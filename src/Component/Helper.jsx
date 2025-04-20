@@ -61,7 +61,7 @@ export const BackgroundBeams = React.memo(({ className }) => {
     <div
       className={cn(
         "absolute h-full w-full inset-0 [mask-size:40px] [mask-repeat:no-repeat] flex items-center justify-center",
-        className
+        className,
       )}
     >
       <svg
@@ -90,7 +90,7 @@ export const BackgroundBeams = React.memo(({ className }) => {
             strokeWidth="0.7" // Thin stroke for laser-like appearance
             initial={{ strokeDasharray: 1000, strokeDashoffset: 1000 }}
             animate={{ strokeDashoffset: 0 }}
-             />
+          />
         ))}
 
         <defs>
@@ -120,8 +120,9 @@ export const BackgroundBeams = React.memo(({ className }) => {
             >
               <stop stopColor="#3B82F6" stopOpacity="0" /> {/* Blue */}
               <stop stopColor="#3B82F6" /> {/* Blue */}
-              <stop offset="50%" stopColor="#6344F5" /> {/* Purple */}
-              <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0" /> {/* Purple */}
+              <stop offset="50.5%" stopColor="#6344F5" /> {/* Purple */}
+              <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0" />{" "}
+              {/* Purple */}
             </motion.linearGradient>
           ))}
 

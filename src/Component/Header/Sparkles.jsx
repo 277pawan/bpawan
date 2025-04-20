@@ -31,7 +31,7 @@ export const SparklesCore = (props) => {
       controls.start({
         opacity: 1,
         transition: {
-          duration: 1,
+          duration: 1.5, // Slightly longer fade-in
         },
       });
     }
@@ -39,7 +39,7 @@ export const SparklesCore = (props) => {
 
   const generatedId = useId();
   return (
-    <motion.div animate={controls} className={cn("opacity-0", className)}>
+    <motion.div animate={controls} className={cn("opacity-1", className)}>
       {init && (
         <Particles
           id={id || generatedId}
@@ -56,7 +56,7 @@ export const SparklesCore = (props) => {
               zIndex: 1,
             },
 
-            fpsLimit: 120,
+            fpsLimit: 60, // Reduced from 120 to slow down overall animation
             interactivity: {
               events: {
                 onClick: {
@@ -71,7 +71,7 @@ export const SparklesCore = (props) => {
               },
               modes: {
                 push: {
-                  quantity: 4,
+                  quantity: 2, // Reduced from 4 to add fewer particles on click
                 },
                 repulse: {
                   distance: 200,
@@ -101,7 +101,7 @@ export const SparklesCore = (props) => {
                   },
                 },
                 enable: false,
-                maxSpeed: 50,
+                maxSpeed: 100,
                 mode: "bounce",
                 overlap: {
                   enable: true,
@@ -191,8 +191,8 @@ export const SparklesCore = (props) => {
                 random: false,
                 size: false,
                 speed: {
-                  min: 0.1,
-                  max: 1,
+                  min: 0.01, // Reduced from 0.02 for slower movement
+                  max: 0.2, // Reduced from 0.5 for slower movement
                 },
                 spin: {
                   acceleration: 0,
@@ -217,17 +217,17 @@ export const SparklesCore = (props) => {
                   mode: "delete",
                   value: 0,
                 },
-                value: particleDensity || 120,
+                value: particleDensity || 80, // Reduced from 120 for fewer particles
               },
               opacity: {
                 value: {
                   min: 0.1,
-                  max: 1,
+                  max: 0.8, // Reduced from 1.0 for less harsh transitions
                 },
                 animation: {
                   count: 0,
                   enable: true,
-                  speed: speed || 4,
+                  speed: speed ? speed / 2 : 1.5, // Significantly slowed down from 4 to 1.5 (or custom/2)
                   decay: 0,
                   delay: 0,
                   sync: false,
@@ -328,9 +328,9 @@ export const SparklesCore = (props) => {
                   opacity: 1,
                 },
                 particles: {
-                  enable: false,
-                  frequency: 0.05,
-                  opacity: 1,
+                  enable: true, // Enabled for gentle twinkling effect
+                  frequency: 0.02, // Low frequency for subtle effect
+                  opacity: 0.8,
                 },
               },
               wobble: {
