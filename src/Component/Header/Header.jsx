@@ -15,7 +15,7 @@ function Header() {
     "Scalability.",
     "Success.",
     // "Backend Architect",
-    // "Tech Explorer",
+    "Tech Explorer",
   ];
 
   useEffect(() => {
