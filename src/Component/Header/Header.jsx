@@ -13,7 +13,7 @@ function Header() {
   const arrayOfValues = [
     "Performance.",
     "Scalability.",
-    "Success.",
+    // "Success.",
     "Backend Architect",
     "Tech Explorer",
   ];
