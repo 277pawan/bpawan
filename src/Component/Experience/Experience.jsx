@@ -4,6 +4,55 @@ import Timeline from "../Timeline/Timeline";
 function Experience() {
   const data = [
     {
+      title: "2025",
+      content: (
+        <div>
+          <p
+            className="text-white text-sm md:text-xl font-normal mb-8"
+            style={{ fontFamily: "itim" }}
+          >
+            Since June 7, 2025, I’ve been working at Predigle as a Software
+            Engineer. Predigle is a product-based company where I contribute to
+            building scalable applications using micro frontend architecture in
+            Angular and backend services in Node.js. I collaborate with a
+            skilled team to deliver high-quality, maintainable software
+            solutions.
+          </p>
+          <div className="grid grid-cols-2 gap-4">
+            <img
+              src="https://blog.predigle.com/wp-content/uploads/2023/09/Screenshot-2023-09-25-at-5.55.01-PM-1152x579.jpg"
+              alt="startup template"
+              width={500}
+              height={500}
+              className="rounded-lg object-cover top h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
+            />
+            <img
+              src="https://media.licdn.com/dms/image/v2/C4E33AQHb7Raot6m_8w/productpage-image_1128_635/productpage-image_1128_635/0/1667971934884/predigle_video_image?e=2147483647&v=beta&t=J08Z5FErNp8AL99_-9HWXj4xk4Cl3AKvZjSbin9dh0I"
+              alt="startup template"
+              width={500}
+              height={500}
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
+            />
+            <img
+              src="https://content3.jdmagicbox.com/v2/comp/chennai/i4/044pxx44.xx44.230401040511.v2i4/catalogue/predigle-india-pvt-ltd-guindy-chennai-software-companies-veht7i3zni.jpg"
+              alt="startup template"
+              width={500}
+              height={500}
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
+            />
+            <img
+              src="https://predigle.com/assets/predigle-website/images/company/about/team.webp"
+              alt="startup template"
+              width={500}
+              height={500}
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
+            />
+          </div>
+        </div>
+      ),
+    },
+
+    {
       title: "2024",
       content: (
         <div>
@@ -11,9 +60,12 @@ function Experience() {
             className="text-white text-sm md:text-xl font-normal mb-8"
             style={{ fontFamily: "itim" }}
           >
-            Since 2024, I have been working at Rubico IT, contributing to
-            innovative software development projects and collaborating with a
-            dynamic team to deliver high-quality solutions.
+            From February 2024 to June 2025, I worked at Rubico IT as an
+            Associate Software Engineer. Rubico is a service-based company where
+            I gained experience in both frontend and backend development across
+            a range of technologies. During my 1.5 years there, I contributed to
+            various client projects, collaborating with cross-functional teams
+            to deliver effective and reliable software solutions.{" "}
           </p>
           <div className="grid grid-cols-2 gap-4">
             <img
