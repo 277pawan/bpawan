@@ -41,13 +41,6 @@
   font-weight: 800;
 }
 
-.headerdesc {
-  font-size: 1.4rem;
-  opacity: 1;
-  width: 50%;
-  line-height: 1.6;
-}
-
 .headerbutton {
   background: #7843e9;
   cursor: pointer;

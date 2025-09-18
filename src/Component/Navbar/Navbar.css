@@ -70,8 +70,7 @@
     display: flex;
     background-color: #020202;
     height: 60px;
-    position: fixed;
-    z-index: 100;
+    position: absolute;
   }
   .navbox1 {
     height: 60px;

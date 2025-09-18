@@ -18,6 +18,10 @@ function Header() {
     "Tech Explorer",
   ];
 
+  const scrollToSection = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
+
   useEffect(() => {
     const arrayLength = arrayOfValues.length;
     let wordLength = 0;
@@ -72,7 +76,7 @@ function Header() {
         <h1 className="md:text-7xl text-3xl lg:text-8xl font-bold text-center text-white relative z-20">
           I'm Pawan Bisht
         </h1>
-        <div className="w-[20rem] text-center sm:w-[40rem] h-40 relative">
+        <div className="w-[24rem] text-center sm:w-[40rem] h-40 relative">
           <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-3/4 blur-sm" />
           <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-3/4" />
           <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] w-1/4 blur-sm" />
@@ -92,7 +96,9 @@ function Header() {
               <motion.button
                 whileTap={{ scale: 0.9 }}
                 ref={headerbuttonref}
-                className="headerbutton py-4 px-8 rounded-md bg-[#7840e1]"
+                className="headerbutton py-4 px-8 text-xl rounded-md bg-[#7840e1]"
+                style={{ fontFamily: "itim" }}
+                onClick={() => scrollToSection("about")}
               >
                 More info 👇
               </motion.button>

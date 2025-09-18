@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import PandaImage from "../../Assets/panda.png";
+import PandaImage from "../../Assets/Pawan_Image.jpeg";
 import "./Contact.css";
 
 function Contact() {
@@ -202,7 +202,7 @@ function Contact() {
 
           <div className="mt-12 lg:flex lg:mt-0 lg:flex-col lg:items-center lg:w-1/2 lg:mx-10">
             <img
-              className="hidden object-cover mx-auto rounded-full lg:block shrink-0 w-96 h-96"
+              className="hidden object-fill border-white border-4 mx-auto rounded-full lg:block shrink-0 w-96 h-96"
               src={PandaImage}
               alt="Contact Person"
             />

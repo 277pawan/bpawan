@@ -104,7 +104,10 @@ function Experience() {
       title: "Early 2023",
       content: (
         <div>
-          <p className="text-white text-sm md:text-xl font-normal mb-8">
+          <p
+            className="text-white text-sm md:text-xl font-normal mb-8"
+            style={{ fontFamily: "itim" }}
+          >
             Completed a Udemy course on web development in early 2023, gaining
             hands-on experience with modern frameworks. Built personal projects
             showcasing frontend and backend skills in real-world applications.
