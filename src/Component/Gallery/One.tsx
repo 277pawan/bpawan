@@ -78,7 +78,7 @@ const One: React.FC = () => {
   const [activeItem, setActiveItem] = useState<Element>(items[0]);
 
   return (
-    <div className="w-full relative min-h-screen overflow-hidden">
+    <div className="w-full relative overflow-hidden">
       {/* ---- ACTIVE ITEM FULL VIEW ---- */}
       <AnimatePresence mode="wait">
         <motion.div

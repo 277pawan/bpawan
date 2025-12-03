@@ -7,7 +7,7 @@ import One from "../Gallery/One.tsx";
 function Projects() {
   return (
     <>
-      <div id="projects" className="bg-[#0a0a0a] text-white">
+      <div id="projects" className="bg-[#0a0a0a] text-white pb-16">
         <div className="projectbox1">
           <div className="text-lg md:text-4xl mb-4 text-center text-white dark:text-white max-w-full uppercase tracking-[0.5rem] font-bold">
             Projects

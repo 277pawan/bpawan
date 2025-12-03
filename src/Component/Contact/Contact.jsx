@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import PandaImage from "../../Assets/Pawan_Image.jpeg";
+import PandaImage from "../../Assets/profile.png";
 import "./Contact.css";
 
 function Contact() {
@@ -202,7 +202,7 @@ function Contact() {
 
           <div className="mt-12 lg:flex lg:mt-0 lg:flex-col lg:items-center lg:w-1/2 lg:mx-10">
             <img
-              className="hidden object-fill border-white border-4 mx-auto rounded-full lg:block shrink-0 w-96 h-96"
+              className="hidden object-cover border-white border-4 mx-auto rounded-full lg:block shrink-0 w-96 h-96"
               src={PandaImage}
               alt="Contact Person"
             />
@@ -230,7 +230,7 @@ function Contact() {
                 </svg>
 
                 <span className="mx-2 text-white w-72">
-                  Dehradun, Uttrakhand 246149
+                  Kotdwara, Pauri Garhwal, Uttrakhand 246149
                 </span>
               </p>
 
@@ -323,20 +323,6 @@ function Contact() {
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path d="M12 0.297C5.373 0.297 0 5.67 0 12.297C0 17.576 3.438 22.16 8.207 23.677C8.807 23.787 9 23.415 9 23.1V20.855C5.672 21.572 5.004 19.435 5.004 19.435C4.463 18.052 3.682 17.683 3.682 17.683C2.633 16.933 3.757 16.948 3.757 16.948C4.907 17.022 5.496 18.14 5.496 18.14C6.533 19.89 8.221 19.428 8.875 19.175C8.985 18.408 9.298 17.873 9.644 17.567C7.02 17.26 4.285 16.191 4.285 11.75C4.285 10.5 4.72 9.46 5.46 8.685C5.345 8.38 4.975 7.093 5.565 5.43C5.565 5.43 6.53 5.097 8.999 6.697C9.95 6.428 10.95 6.297 11.955 6.297C12.96 6.297 13.96 6.428 14.911 6.697C17.38 5.097 18.345 5.43 18.345 5.43C18.935 7.093 18.565 8.38 18.45 8.685C19.19 9.46 19.625 10.5 19.625 11.75C19.625 16.205 16.885 17.255 14.255 17.552C14.705 17.935 15.08 18.715 15.08 19.84V23.1C15.08 23.415 15.273 23.787 15.873 23.677C20.642 22.16 24.08 17.576 24.08 12.297C24 5.67 18.627 0.297 12 0.297Z" />
-                  </svg>
-                </a>
-                {/* Twitter Icon */}
-                <a
-                  className="mx-1.5 dark:hover:text-blue-400 text-gray-400 transition-colors duration-300 transform hover:text-blue-500"
-                  href="#"
-                >
-                  <svg
-                    className="w-10 h-10 fill-current"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M18.6668 6.67334C18.0002 7.00001 17.3468 7.13268 16.6668 7.33334C15.9195 6.49001 14.8115 6.44334 13.7468 6.84201C12.6822 7.24068 11.9848 8.21534 12.0002 9.33334V10C9.83683 10.0553 7.91016 9.07001 6.66683 7.33334C6.66683 7.33334 3.87883 12.2887 9.3335 14.6667C8.0855 15.498 6.84083 16.0587 5.3335 16C7.53883 17.202 9.94216 17.6153 12.0228 17.0113C14.4095 16.318 16.3708 14.5293 17.1235 11.85C17.348 11.0351 17.4595 10.1932 17.4548 9.34801C17.4535 9.18201 18.4615 7.50001 18.6668 6.67268V6.67334Z" />
                   </svg>
                 </a>
               </div>
