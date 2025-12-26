@@ -1,33 +1,24 @@
-import "./Projects.css";
-// import proj1 from "../../Assets/Lap1.png";
-// import proj2 from "../../Assets/Lap2.png";
-// import proj3 from "../../Assets/Lap3.png";
-// import proj4 from "../../Assets/Lap4.png";
+// import "./Projects.css"; // Removing CSS dependency
 import One from "../Gallery/One.tsx";
+
 function Projects() {
   return (
-    <>
-      <div id="projects" className="bg-[#0a0a0a] text-white pb-16">
-        <div className="projectbox1">
-          <div className="text-lg md:text-4xl mb-4 text-center text-white dark:text-white max-w-full uppercase tracking-[0.5rem] font-bold">
-            Projects
-          </div>{" "}
-          <hr
-            style={{
-              height: "5px",
-              width: "80px",
-              backgroundColor: "#7843e9",
-              borderRadius: "10px",
-            }}
-          ></hr>
-          <div className="project1desc">
-            Here you will find some of the personal and clients projects that I
-            created with each project containing its own URL.
-          </div>
-        </div>
-        <One />
+    <section id="projects" className="bg-[#0a0a0a] text-white py-16 scroll-mt-16">
+      <div className="flex flex-col items-center justify-center mb-12">
+        <h2 className="text-lg md:text-4xl mb-4 text-center text-white uppercase tracking-[0.5rem] font-bold">
+          Projects
+        </h2>
+
+        <div className="h-1.5 w-20 bg-[#7843e9] rounded-full mb-8"></div>
+
+        <p className="w-[90%] md:w-[60vw] text-center text-xl md:text-2xl font-light text-gray-300 leading-relaxed" style={{ fontFamily: "itim" }}>
+          Here you will find some of the personal and clients projects that I
+          created with each project containing its own URL.
+        </p>
       </div>
-    </>
+
+      <One />
+    </section>
   );
 }
 

@@ -76,7 +76,7 @@ function Contact() {
   return (
     <section
       id="contact"
-      className="min-h-screen bg-[#020202] dark:bg-uuu"
+      className="min-h-screen bg-[#020202] dark:bg-uuu pt-5 scroll-mt-16"
       ref={contactRef}
     >
       <div className="contactbox1">

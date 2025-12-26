@@ -1,40 +1,55 @@
-import React, { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { cn } from "../../lib/utils.js";
-import "../Projects/Projects.css";
+import React from "react";
+import { motion } from "framer-motion";
 
 // IMAGES
 import geoLocationImage from "../../Assets/geolocation.png";
 import BankistImage from "../../Assets/Bankist.png";
-import SpaceInvaderImage from "../../Assets/SpaceInvader.png";
-import MaxtechImage from "../../Assets/Maxtech.png";
-import ShineWavesImage from "../../Assets/Shine-Wave.png";
 import FormBuilderImage from "../../Assets/Form-builder.png";
+import AgriThreadImage from "../../Assets/AgriThread.png";
+import HabitIdentityImage from "../../Assets/HabitIdentity.png";
+import VideoCallerImage from "../../Assets/VideoCaller.png";
+import GithubImage from "../../Assets/github.svg";
 
 interface Element {
   id: number;
-  height: number;
   img: string;
   title: string;
   description: string;
   link1: string;
   link2: string;
+  isMoreProjects?: boolean;
 }
 
 const items: Element[] = [
   {
-    id: 2,
-    height: 350,
-    img: SpaceInvaderImage,
-    title: "Space Invader",
+    id: 1,
+    img: AgriThreadImage,
+    title: "AgriThread",
     description:
-      "A fully animated HTML5 canvas game with sound effects, enemy waves and smooth controls...",
-    link1: "https://277pawan.github.io/Spaceinvaders/",
-    link2: "https://github.com/277pawan/Spaceinvaders",
+      "A comprehensive digital agriculture platform connecting farmers and stakeholders. Features weather alerts, marketplace, and expert advisory services.",
+    link1: "https://agrithread-frontend.vercel.app/",
+    link2: "",
+  },
+  {
+    id: 2,
+    img: HabitIdentityImage,
+    title: "Habit Identity",
+    description:
+      "A mindset-focused habit tracker that helps you build identity-based habits. Track your progress and become the person you want to be.",
+    link1: "https://habit-tracker-front-three.vercel.app/",
+    link2: "https://github.com/277pawan/habit_tracker_front",
   },
   {
     id: 3,
-    height: 300,
+    img: VideoCallerImage,
+    title: "Video Caller",
+    description:
+      "Seamless real-time video calling application built with WebRTC. Connect with others instantly with high-quality video and audio streaming.",
+    link1: "https://bvideo-caller.vercel.app/",
+    link2: "https://github.com/277pawan/Web-RTC",
+  },
+  {
+    id: 4,
     img: BankistImage,
     title: "Bankist Website",
     description:
@@ -43,8 +58,7 @@ const items: Element[] = [
     link2: "https://github.com/277pawan/Bankist",
   },
   {
-    id: 4,
-    height: 250,
+    id: 5,
     img: FormBuilderImage,
     title: "Form-Builder",
     description:
@@ -53,18 +67,7 @@ const items: Element[] = [
     link2: "https://github.com/277pawan/form-builder",
   },
   {
-    id: 5,
-    height: 400,
-    img: ShineWavesImage,
-    title: "Shine-Waves",
-    description:
-      "A beautiful 3D shining wave animation with fully customizable amplitude, colors and frequency.",
-    link1: "https://277pawan.github.io/Shine-waves/",
-    link2: "https://github.com/277pawan/Shine-Waves",
-  },
-  {
     id: 6,
-    height: 350,
     img: geoLocationImage,
     title: "GeoLocation Tracker",
     description:
@@ -72,78 +75,87 @@ const items: Element[] = [
     link1: "https://277pawan.github.io/Geolocation-tracker/",
     link2: "https://github.com/277pawan/Geolocation-tracker",
   },
+  {
+    id: 7,
+    img: GithubImage,
+    title: "More Projects",
+    description: "Check out more of my work and open-source contributions on my GitHub profile.",
+    link1: "https://github.com/277pawan",
+    link2: "",
+    isMoreProjects: true
+  }
 ];
 
 const One: React.FC = () => {
-  const [activeItem, setActiveItem] = useState<Element>(items[0]);
-
   return (
-    <div className="w-full relative overflow-hidden">
-      {/* ---- ACTIVE ITEM FULL VIEW ---- */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={activeItem.id}
-          initial={{ opacity: 0, scale: 0.85 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
-          className="w-[94%] h-[56vh] rounded-3xl overflow-hidden  mx-auto relative"
-        >
-          <img
-            src={activeItem.img}
-            alt={activeItem.title}
-            className="w-full h-full object-cover"
-          />
-
-          {/* TEXT OVERLAY */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent p-8 flex flex-col justify-end">
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
-              {activeItem.title}
-            </h2>
-            <p
-              style={{ fontFamily: "itim" }}
-              className="text-white/90 text-sm md:text-base max-w-2xl mt-2 line-clamp-4"
-            >
-              {activeItem.description}
-            </p>
-
-            <div className="flex gap-4 mt-4">
-              <a
-                href={activeItem.link1}
-                target="_blank"
-                className="px-4 py-2 bg-white/20 backdrop-blur-md rounded-full text-white"
-              >
-                View Site
-              </a>
-              <a
-                href={activeItem.link2}
-                target="_blank"
-                className="px-4 py-2 bg-white rounded-full text-black"
-              >
-                Github
-              </a>
-            </div>
-          </div>
-        </motion.div>
-      </AnimatePresence>
-
-      {/* ---- BOTTOM CAROUSEL ---- */}
-      <div
-        className="flex flex-row justify-center gap-4 mt-6 w-full overflow-x-auto pb-4 px-4"
-        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-      >
-        {items.map((ele) => (
+    <div className="w-full max-w-7xl mx-auto px-4 md:px-8 py-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ">
+        {items.map((project) => (
           <motion.div
-            key={ele.id}
-            onClick={() => setActiveItem(ele)}
-            className="min-w-[150px] h-[100px] rounded-xl overflow-hidden cursor-pointer border-2 border-gray-700"
-            whileHover={{ scale: 1.05 }}
+            key={project.id}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: project.id * 0.1 }}
+            className={`group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-800 flex flex-col ${project.isMoreProjects ? 'bg-[#7843e9] items-center justify-center text-center cursor-pointer' : 'bg-[#1a1a1a]'}`}
+            onClick={() => project.isMoreProjects && window.open(project.link1, '_blank')}
           >
-            <img
-              src={ele.img}
-              alt={ele.title}
-              className="w-full h-full object-cover"
-            />
+            {project.isMoreProjects ? (
+              <div className="p-8 flex flex-col items-center justify-center h-[472px] w-full hover:bg-[#6a35d9] transition-colors">
+                <div className="bg-white p-4 rounded-full mb-6">
+                  <img src={project.img} alt="Github" className="w-16 h-16" />
+                </div>
+                <h3 className="text-3xl font-bold text-white mb-4">{project.title}</h3>
+                <p className="text-white/80 text-lg mb-8" style={{ fontFamily: "itim" }}>{project.description}</p>
+                <span className="px-6 py-3 bg-white text-[#7843e9] font-bold rounded-full hover:scale-105 transition-transform">
+                  Visit Github
+                </span>
+              </div>
+            ) : (
+              <>
+                {/* Image Container */}
+                <div className="h-48 overflow-hidden relative">
+                  <img
+                    src={project.img}
+                    alt={project.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-in-out"
+                  />
+                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-300" />
+                </div>
+
+                {/* Content Container */}
+                <div className="p-6 flex flex-col h-[280px]">
+                  <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-purple-400 transition-colors">
+                    {project.title}
+                  </h3>
+
+                  <p className="text-gray-400 text-sm leading-relaxed mb-6 font-sans flex-grow">
+                    {project.description}
+                  </p>
+
+                  <div className="flex gap-4 mt-auto">
+                    <a
+                      href={project.link1}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 text-center px-4 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-all transform hover:-translate-y-0.5"
+                    >
+                      Live Demo
+                    </a>
+                    {project.link2 && (
+                      <a
+                        href={project.link2}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 text-center px-4 py-2.5 bg-[#2a2a2a] hover:bg-[#333] text-white border border-gray-700 rounded-lg font-medium transition-all transform hover:-translate-y-0.5"
+                      >
+                        GitHub
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </>
+            )}
           </motion.div>
         ))}
       </div>
