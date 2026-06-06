@@ -25,7 +25,6 @@ function Header() {
     let isDeleting = false;
     let loopNum = 0;
 
-    // Typing speed control
     const typeSpeed = 100;
     const deleteSpeed = 50;
     const pauseTime = 1500;
@@ -64,92 +63,112 @@ function Header() {
   }, []);
 
   return (
-    <div className="relative w-full h-[100vh] min-h-[600px] flex flex-col items-center justify-center bg-black overflow-hidden font-sans selection:bg-indigo-500 selection:text-white">
-      {/* 1. Background Beams (Bottom Mid) */}
+    <div className="relative w-full min-h-[100vh] flex items-center bg-black overflow-hidden font-sans selection:bg-indigo-500 selection:text-white">
+      {/* Background Beams */}
       <div className="absolute inset-0 pointer-events-none">
         <BackgroundBeams className="opacity-40" />
       </div>
 
-      {/* 2. Dot Pattern Background */}
-      <div className="absolute inset-0 bg-transparent bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
+      {/* Dot Grid Pattern */}
+      <div className="absolute inset-0 bg-transparent bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
 
-      {/* 3. Top Spotlight Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[60vw] h-[40vh] bg-indigo-500/5 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[40vw] h-[30vh] bg-purple-500/10 blur-[100px] rounded-full pointer-events-none" />
+      {/* Spotlight Glows */}
+      <div className="absolute top-0 left-1/4 w-[40vw] h-[50vh] bg-indigo-500/5 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute top-0 left-1/4 w-[25vw] h-[35vh] bg-purple-500/10 blur-[100px] rounded-full pointer-events-none" />
+      {/* Right side subtle glow behind terminal */}
+      <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[40vw] h-[70vh] bg-indigo-600/5 blur-[100px] rounded-full pointer-events-none" />
 
-      {/* 5. Main Content */}
-      <div className="z-10 flex flex-col items-center justify-center w-full px-4 text-center mt-[-5vh]">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="relative"
-        >
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight mb-6 text-white drop-shadow-2xl">
-            I'm{" "}
-            <span className="bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-gray-500">
-              Pawan Bisht
-            </span>
-          </h1>
-        </motion.div>
+      {/* ── Two-column layout ── */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 py-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[100vh]">
+        {/* LEFT — Text content */}
+        <div className="flex flex-col items-start text-left gap-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+          >
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-white drop-shadow-2xl leading-[1.05]">
+              I'm{" "}
+              <span className="bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-gray-500">
+                Pawan Bisht
+              </span>
+            </h1>
+          </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4, duration: 0.8 }}
-          className="max-w-4xl mx-auto flex flex-col items-center gap-8"
-        >
-          <p className="text-sm md:text-base lg:text-lg text-gray-400 max-w-lg mx-auto leading-relaxed font-light tracking-wide">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+            className="text-sm md:text-base text-gray-400 max-w-md leading-relaxed font-light tracking-wide"
+          >
             I'm a Full Stack Developer who brings ideas to life with clean,
             efficient code. From dynamic frontends to robust backends, I craft
             seamless digital experiences.
-          </p>
+          </motion.p>
 
           {/* Typewriter Badge */}
-          <div className="relative group cursor-default">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="relative group cursor-default"
+          >
             <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-xl blur opacity-20 group-hover:opacity-40 transition duration-500" />
-            <div className="relative px-8 py-3 bg-white/5 backdrop-blur-md border border-white/10 rounded-xl flex items-center justify-center min-w-[280px]">
-              <span className="text-indigo-300 font-medium mr-3">
+            <div className="relative px-6 py-3 bg-white/5 backdrop-blur-md border border-white/10 rounded-xl flex items-center min-w-[260px]">
+              <span className="text-indigo-300 font-medium mr-3 text-sm">
                 Excellence in
               </span>
-              <span className="text-white font-bold tracking-wide">
+              <span className="text-white font-bold tracking-wide text-sm">
                 {heroSectionValue}
               </span>
-              <span className="w-[2px] h-5 bg-indigo-400 ml-1 animate-pulse" />
+              <span className="w-[2px] h-4 bg-indigo-400 ml-1 animate-pulse" />
             </div>
-          </div>
+          </motion.div>
 
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => scrollToSection("about")}
-            className="group relative px-8 py-3 bg-white text-black font-bold rounded-full overflow-hidden transition-all hover:bg-gray-100 hover:shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] mt-4"
+          {/* CTA Button */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.8 }}
           >
-            <span className="relative z-10 flex items-center gap-2">
-              Explore Portfolio
-              <svg
-                className="w-4 h-4 transition-transform group-hover:translate-y-0.5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 14l-7 7m0 0l-7-7m7 7V3"
-                />
-              </svg>
-            </span>
-          </motion.button>
-        </motion.div>
-        <motion.div>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => scrollToSection("about")}
+              className="group relative px-8 py-3 bg-white text-black font-bold rounded-full overflow-hidden transition-all hover:bg-gray-100 hover:shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)]"
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                Explore Portfolio
+                <svg
+                  className="w-4 h-4 transition-transform group-hover:translate-y-0.5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                  />
+                </svg>
+              </span>
+            </motion.button>
+          </motion.div>
+        </div>
+
+        {/* RIGHT — Terminal Card */}
+        <motion.div
+          initial={{ opacity: 0, x: 40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.4, duration: 0.9, ease: "easeOut" }}
+          className="flex items-center justify-center lg:justify-end"
+        >
           <TerminalCodeCard />
-          <SkillPills />
         </motion.div>
       </div>
 
-      {/* 6. Scroll Arrow */}
+      {/* Scroll Arrow */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, y: [0, 10, 0] }}
@@ -159,7 +178,7 @@ function Header() {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute bottom-10 z-20 cursor-pointer"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 cursor-pointer"
         onClick={() => scrollToSection("about")}
       >
         <svg
@@ -177,7 +196,7 @@ function Header() {
         </svg>
       </motion.div>
 
-      {/* 7. Bottom Gradient Fade */}
+      {/* Bottom Gradient Fade */}
       <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-black via-black/50 to-transparent pointer-events-none" />
     </div>
   );

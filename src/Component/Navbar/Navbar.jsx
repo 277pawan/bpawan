@@ -32,14 +32,18 @@ function Navbar() {
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled || isOpen
-          ? "bg-black/80 backdrop-blur-md shadow-lg"
-          : "bg-transparent"
-          }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled || isOpen
+            ? "bg-black/80 backdrop-blur-md shadow-lg"
+            : "bg-transparent"
+        }`}
       >
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <div className="w-full mx-auto px-6 h-20 flex items-center justify-between">
           {/* Logo Section */}
-          <div className="flex items-center gap-3 group cursor-pointer" onClick={() => scrollToSection("home")}>
+          <div
+            className="flex items-center gap-3 group cursor-pointer"
+            onClick={() => scrollToSection("home")}
+          >
             <div className="relative">
               <div className="absolute inset-0 bg-[#7843e9] rounded-full blur opacity-40 group-hover:opacity-60 transition-opacity" />
               <img
@@ -48,7 +52,10 @@ function Navbar() {
                 alt="pawan"
               />
             </div>
-            <Link to="/" className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
+            <Link
+              to="/"
+              className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400"
+            >
               Pawan Bisht
             </Link>
           </div>
@@ -59,10 +66,11 @@ function Navbar() {
               <button
                 key={link.name}
                 onClick={() => scrollToSection(link.id)}
-                className={`text-sm tracking-widest uppercase hover:text-[#7843e9] transition-colors relative group ${link.name === "Contact"
-                  ? "px-5 py-2 bg-[#7843e9] rounded-full hover:bg-[#6a35d9] text-white hover:text-white"
-                  : "text-gray-300"
-                  }`}
+                className={`text-sm tracking-widest uppercase hover:text-[#7843e9] transition-colors relative group ${
+                  link.name === "Contact"
+                    ? "px-5 py-2 bg-[#7843e9] rounded-full hover:bg-[#6a35d9] text-white hover:text-white"
+                    : "text-gray-300"
+                }`}
               >
                 {link.name}
                 {link.name !== "Contact" && (
