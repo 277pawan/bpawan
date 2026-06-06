@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { SparklesCore } from "./Sparkles";
 import { BackgroundBeams } from "../Helper.jsx";
+import { SkillPills, TerminalCodeCard } from "../../lib/TerminalCard";
 
 function Header() {
   const [heroSectionValue, setHeroSectionValue] = useState("");
@@ -64,7 +65,6 @@ function Header() {
 
   return (
     <div className="relative w-full h-[100vh] min-h-[600px] flex flex-col items-center justify-center bg-black overflow-hidden font-sans selection:bg-indigo-500 selection:text-white">
-
       {/* 1. Background Beams (Bottom Mid) */}
       <div className="absolute inset-0 pointer-events-none">
         <BackgroundBeams className="opacity-40" />
@@ -77,8 +77,6 @@ function Header() {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[60vw] h-[40vh] bg-indigo-500/5 blur-[120px] rounded-full pointer-events-none" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[40vw] h-[30vh] bg-purple-500/10 blur-[100px] rounded-full pointer-events-none" />
 
-
-
       {/* 5. Main Content */}
       <div className="z-10 flex flex-col items-center justify-center w-full px-4 text-center mt-[-5vh]">
         <motion.div
@@ -88,7 +86,10 @@ function Header() {
           className="relative"
         >
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight mb-6 text-white drop-shadow-2xl">
-            I'm <span className="bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-gray-500">Pawan Bisht</span>
+            I'm{" "}
+            <span className="bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-gray-500">
+              Pawan Bisht
+            </span>
           </h1>
         </motion.div>
 
@@ -108,8 +109,12 @@ function Header() {
           <div className="relative group cursor-default">
             <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-xl blur opacity-20 group-hover:opacity-40 transition duration-500" />
             <div className="relative px-8 py-3 bg-white/5 backdrop-blur-md border border-white/10 rounded-xl flex items-center justify-center min-w-[280px]">
-              <span className="text-indigo-300 font-medium mr-3">Excellence in</span>
-              <span className="text-white font-bold tracking-wide">{heroSectionValue}</span>
+              <span className="text-indigo-300 font-medium mr-3">
+                Excellence in
+              </span>
+              <span className="text-white font-bold tracking-wide">
+                {heroSectionValue}
+              </span>
               <span className="w-[2px] h-5 bg-indigo-400 ml-1 animate-pulse" />
             </div>
           </div>
@@ -122,11 +127,25 @@ function Header() {
           >
             <span className="relative z-10 flex items-center gap-2">
               Explore Portfolio
-              <svg className="w-4 h-4 transition-transform group-hover:translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              <svg
+                className="w-4 h-4 transition-transform group-hover:translate-y-0.5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                />
               </svg>
             </span>
           </motion.button>
+        </motion.div>
+        <motion.div>
+          <TerminalCodeCard />
+          <SkillPills />
         </motion.div>
       </div>
 
@@ -134,7 +153,12 @@ function Header() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, y: [0, 10, 0] }}
-        transition={{ delay: 1, duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+        transition={{
+          delay: 1,
+          duration: 1.5,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
         className="absolute bottom-10 z-20 cursor-pointer"
         onClick={() => scrollToSection("about")}
       >
@@ -144,8 +168,12 @@ function Header() {
           viewBox="0 0 24 24"
           stroke="currentColor"
         >
-
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7m0 0l-7-7" />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={1.5}
+            d="M19 14l-7 7m0 0l-7-7"
+          />
         </svg>
       </motion.div>
 
