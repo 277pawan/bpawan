@@ -115,7 +115,7 @@ export function TerminalCodeCard() {
 
         .card {
           width: 100%;
-          max-width: 565px;
+          max-width: 605px;
           background: #0d1117;
           border: 1px solid rgba(255,255,255,0.07);
           border-radius: 16px;
@@ -245,7 +245,7 @@ export function TerminalCodeCard() {
         }
         .code-content {
           padding: 12px;
-          overflow-x: auto;
+          overflow-x: hidden;
         }
         .code-line {
           line-height: 22px;
