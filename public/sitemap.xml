@@ -2,36 +2,43 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://two77pawan.onrender.com/</loc>
+    <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://two77pawan.onrender.com/engineering</loc>
+    <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://two77pawan.onrender.com/projects/react-form-toaster</loc>
+    <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://two77pawan.onrender.com/projects/revenant</loc>
+    <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
-    <loc>https://two77pawan.onrender.com/engineering/cap-theorem-block-demo</loc>
+    <loc>https://two77pawan.onrender.com/engineering/cache</loc>
+    <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://two77pawan.onrender.com/engineering/cache</loc>
+    <loc>https://two77pawan.onrender.com/engineering/cap-theorem-block-demo</loc>
+    <lastmod>2026-03-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://two77pawan.onrender.com/engineering/redundancy</loc>
+    <lastmod>2026-09-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>

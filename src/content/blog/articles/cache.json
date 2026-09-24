@@ -1,15 +1,15 @@
 {
   "slug": "cache",
   "title": "Cache Really Matters",
-  "description": "Cache",
+  "description": "What a cache is, where it shows up, and how write-through, write-back, and write-around trade speed, consistency, and data-loss risk.",
   "keywords": [
-    "CAP theorem",
-    "distributed systems",
-    "consistency",
-    "availability",
-    "partition tolerance",
-    "system design",
-    "cache"
+    "cache",
+    "write-through",
+    "write-back",
+    "write-around",
+    "caching",
+    "performance",
+    "system design"
   ],
   "author": "Pawan Bisht",
   "publishedAt": "2026-09-24",
