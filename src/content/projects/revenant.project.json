@@ -1,0 +1,145 @@
+{
+  "slug": "revenant",
+  "title": "Revenant",
+  "tagline": "Prove your database backups actually recover",
+  "badge": "Open source · Go CLI · Apache-2.0",
+  "description": "Connects to PostgreSQL (local or AWS RDS), runs validation checks from revenant.yaml, measures recovery time, writes reports, and tears down test sandboxes. Language-agnostic — your app can be Node, Python, Go, or anything.",
+  "keywords": ["Revenant", "PostgreSQL backup", "restore verification", "AWS RDS", "SRE", "GitHub Action"],
+  "coverImage": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80",
+  "exploreUrl": "https://revenant-verify-933e4.web.app/",
+  "exploreLabel": "Marketing website",
+  "repoUrl": "https://github.com/277pawan/revenant-cli",
+  "blocks": [
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "Problem",
+      "text": "Backups that never get restored are wishful thinking. Revenant proves restores work — not just that backup jobs completed."
+    },
+    {
+      "type": "compare",
+      "left": {
+        "title": "Free CLI (this repo)",
+        "points": ["1 DB, yaml + CLI", "Local or AWS verify", "report.json + report.md"]
+      },
+      "right": {
+        "title": "GitHub Action",
+        "points": ["Any repo, CI/CD", "No Go install in pipeline", "revenant-action@v1"]
+      }
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Install options"
+    },
+    {
+      "type": "list",
+      "ordered": true,
+      "items": [
+        "GitHub Action (recommended for CI) — uses: 277pawan/revenant-action@v1.0.3",
+        "Download binary from GitHub Releases (Linux, Mac, Windows)",
+        "Build from source: go build for contributors"
+      ]
+    },
+    {
+      "type": "code",
+      "language": "yaml",
+      "filename": ".github/workflows/verify.yml (snippet)",
+      "code": "- uses: 277pawan/revenant-action@v1.0.3\n  with:\n    version: v0.1.1\n    config: revenant.yaml\n  env:\n    DATABASE_URL: ${{ secrets.DATABASE_URL }}"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Quick start (local Postgres)"
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "export DATABASE_URL='postgres://user:pass@localhost:5432/mydb?sslmode=disable'\nrevenant init --plan my-app --force\nrevenant verify"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Expected output",
+      "text": "Schema checks, row counts, foreign keys pass → Restore Validation: PASS → Wrote report.json and report.md"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Commands"
+    },
+    {
+      "type": "table",
+      "headers": ["Command", "What it does"],
+      "rows": [
+        ["revenant doctor", "Config, env vars, DB connectivity"],
+        ["revenant init", "Scan live DB → starter revenant.yaml"],
+        ["revenant verify", "Run checks; optional AWS snapshot restore"],
+        ["revenant snapshot", "Validate source, then RDS snapshot"],
+        ["revenant reap", "Delete orphaned AWS sandboxes"],
+        ["revenant migrate", "Demo tables only (learning)"]
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Check types in revenant.yaml"
+    },
+    {
+      "type": "table",
+      "headers": ["type", "Purpose"],
+      "rows": [
+        ["connect", "DB accepts connections"],
+        ["schema", "expect_tables exist"],
+        ["row_count", "min/max rows"],
+        ["foreign_key", "FK + no orphans"],
+        ["golden_query", "SQL rule + expect_min"],
+        ["freshness", "column max_age"],
+        ["index", "expect_indexes"]
+      ]
+    },
+    {
+      "type": "code",
+      "language": "yaml",
+      "filename": "revenant.yaml (example)",
+      "code": "checks:\n  - type: connect\n  - type: schema\n    expect_tables: [customers, orders]\n  - type: row_count\n    table: orders\n    min: 1\n  - type: foreign_key\n    table: orders\n    references: customers\n  - type: golden_query\n    query: \"SELECT count(*) FROM orders\"\n    expect_min: 1\n  - type: freshness\n    table: orders\n    column: created_at\n    max_age: 24h"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "AWS RDS workflow"
+    },
+    {
+      "type": "paragraph",
+      "text": "Optional recovery.engine: aws-rds restores latest snapshot to a temporary sandbox, runs checks, destroys sandbox. Use revenant reap in CI with if: always() as a safety net."
+    },
+    {
+      "type": "stats",
+      "items": [
+        { "label": "Reports", "value": "JSON + MD" },
+        { "label": "CI", "value": "Artifacts" },
+        { "label": "App code", "value": "Never read" },
+        { "label": "License", "value": "Apache-2.0" }
+      ]
+    },
+    {
+      "type": "video",
+      "title": "Product demo",
+      "comingSoon": true,
+      "comingSoonMessage": "Video demo coming soon",
+      "comingSoonHint": "Explore the marketing site and CLI README for screenshots and workflow diagrams today."
+    },
+    {
+      "type": "linkCard",
+      "title": "Revenant marketing site",
+      "description": "Product story, features, and links to CLI + Action repos.",
+      "href": "https://revenant-verify-933e4.web.app/"
+    },
+    {
+      "type": "linkCard",
+      "title": "GitHub Action marketplace",
+      "description": "277pawan/revenant-action — publish and run verify in any repository.",
+      "href": "https://github.com/277pawan/revenant-action"
+    }
+  ]
+}

@@ -1,0 +1,264 @@
+{
+  "slug": "cap-theorem-block-demo",
+  "title": "CAP Theorem — Full JSON Block Demo",
+  "description": "Interactive demo article using every engineering blog block type: video, code, polls, tables, and SEO fields. Learn CAP (Consistency, Availability, Partition tolerance) for interviews and system design.",
+  "keywords": [
+    "CAP theorem",
+    "distributed systems",
+    "consistency",
+    "availability",
+    "partition tolerance",
+    "system design"
+  ],
+  "author": "Pawan Bisht",
+  "publishedAt": "2026-03-01",
+  "updatedAt": "2026-03-01",
+  "category": "Engineering Concepts",
+  "tags": ["distributed-systems", "demo", "system-design"],
+  "coverImage": "https://images.unsplash.com/photo-1639322537228-f710d846310a?w=1200&q=80",
+  "ogImage": "https://images.unsplash.com/photo-1639322537228-f710d846310a?w=1200&q=80",
+  "readingTimeMinutes": 15,
+  "featured": true,
+  "relatedSlugs": ["redundancy", "idempotency"],
+  "blocks": [
+    {
+      "type": "callout",
+      "variant": "note",
+      "title": "Demo article",
+      "text": "This page exercises every JSON block type supported by the engineering blog renderer — including video. Content is real; structure is the showcase."
+    },
+    {
+      "level": 2,
+      "type": "heading",
+      "id": "cap-intro",
+      "text": "What is the CAP theorem?"
+    },
+    {
+      "type": "paragraph",
+      "text": "In a distributed data store, when a network partition happens, you cannot simultaneously guarantee both perfect consistency and perfect availability — you choose a tradeoff."
+    },
+    {
+      "type": "text",
+      "text": "Colored text block example for emphasis.",
+      "color": "#a78bfa"
+    },
+    {
+      "type": "richText",
+      "html": "<p>This is <strong>richText</strong> with <em>inline HTML</em> — use sparingly for trusted author content only.</p>"
+    },
+    {
+      "type": "stats",
+      "items": [
+        { "label": "C", "value": "Consistency" },
+        { "label": "A", "value": "Availability" },
+        { "label": "P", "value": "Partition" },
+        { "label": "Pick", "value": "2 of 3" }
+      ]
+    },
+    {
+      "type": "video",
+      "title": "CAP theorem explained (video)",
+      "comingSoon": true,
+      "comingSoonMessage": "Extended walkthrough coming soon"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Pick two — compare"
+    },
+    {
+      "type": "compare",
+      "left": {
+        "title": "CP (Consistency + Partition)",
+        "points": [
+          "Strong reads/writes during partition",
+          "May reject requests (sacrifice A)",
+          "Example: ZooKeeper, etcd"
+        ]
+      },
+      "right": {
+        "title": "AP (Availability + Partition)",
+        "points": [
+          "Always respond during partition",
+          "May return stale data (sacrifice C)",
+          "Example: Cassandra-style tunable consistency"
+        ]
+      }
+    },
+    {
+      "type": "columns",
+      "columns": [
+        {
+          "title": "Consistency",
+          "body": "Every read receives the most recent write or an error."
+        },
+        {
+          "title": "Availability",
+          "body": "Every request receives a non-error response."
+        },
+        {
+          "title": "Partition tolerance",
+          "body": "System continues despite dropped or delayed messages between nodes."
+        }
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": true,
+      "items": [
+        "Identify your failure domains (AZ, region, network).",
+        "Decide RPO/RTO with product and legal.",
+        "Choose CP vs AP per data path — not one global answer."
+      ]
+    },
+    {
+      "type": "checklist",
+      "items": [
+        { "text": "Document partition behavior in runbooks", "checked": true },
+        { "text": "Chaos-test network splits in staging", "checked": false },
+        { "text": "Expose consistency mode in API docs", "checked": false }
+      ]
+    },
+    {
+      "type": "code",
+      "language": "yaml",
+      "filename": "freshness-check.yaml",
+      "caption": "Freshness checks relate to consistency — how stale can reads be during partition?",
+      "code": "checks:\n  - type: freshness\n    table: orders\n    column: updated_at\n    max_age: 24h"
+    },
+    {
+      "type": "table",
+      "caption": "Typical tradeoffs",
+      "headers": ["System style", "During partition", "User sees"],
+      "rows": [
+        ["CP", "Reject writes", "Errors until quorum"],
+        ["AP", "Accept writes", "Possible stale reads"],
+        ["CA", "Not partition-tolerant", "Only valid on single node"]
+      ]
+    },
+    {
+      "type": "keyValue",
+      "entries": [
+        {
+          "term": "Linearizability",
+          "definition": "Strongest single-object consistency model."
+        },
+        {
+          "term": "Eventual consistency",
+          "definition": "Replicas converge if no new writes arrive."
+        },
+        {
+          "term": "Quorum",
+          "definition": "Majority of nodes required before acknowledging a write."
+        }
+      ]
+    },
+    {
+      "type": "quote",
+      "text": "It's not about choosing CAP — it's about choosing which guarantees matter for each operation.",
+      "cite": "Practitioner shorthand"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Interview tip",
+      "text": "Name the partition first, then explain which leg you relax and how clients detect stale reads."
+    },
+    {
+      "type": "callout",
+      "variant": "warning",
+      "title": "Common mistake",
+      "text": "Calling a single monolith 'CA' while ignoring that production always has partial failures."
+    },
+    {
+      "type": "callout",
+      "variant": "danger",
+      "title": "Outage pattern",
+      "text": "Split-brain writes without conflict resolution can corrupt financial balances."
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "PACELC",
+      "text": "When the network is normal, you still trade latency vs consistency — CAP is the partition case of a broader design space."
+    },
+    {
+      "type": "color",
+      "hex": "#7843e9",
+      "name": "Portfolio accent"
+    },
+    {
+      "type": "colorPalette",
+      "colors": [
+        { "name": "Consistent", "hex": "#3b82f6" },
+        { "name": "Available", "hex": "#10b981" },
+        { "name": "Partitioned", "hex": "#f59e0b" }
+      ]
+    },
+    {
+      "type": "poll",
+      "id": "cap-poll-demo",
+      "question": "For a checkout API during a partition, which default do you prefer?",
+      "hint": "Demo poll — stored in localStorage only.",
+      "options": [
+        { "id": "cp", "label": "Fail closed (CP)" },
+        { "id": "ap", "label": "Accept orders (AP)" },
+        { "id": "queue", "label": "Queue + reconcile later" }
+      ]
+    },
+    {
+      "type": "accordion",
+      "items": [
+        {
+          "title": "Is CAP still relevant in 2026?",
+          "body": "Yes as a framing tool. Modern systems add PACELC and per-operation consistency levels."
+        },
+        {
+          "title": "Does Redis choose AP or CP?",
+          "body": "Depends on mode: single primary with sync replication leans CP; async replication allows availability with lag."
+        }
+      ]
+    },
+    {
+      "type": "timeline",
+      "events": [
+        {
+          "date": "2000",
+          "title": "Brewer's conjecture",
+          "description": "CAP popularized for distributed systems design."
+        },
+        {
+          "date": "2002",
+          "title": "Formal proof",
+          "description": "Gilbert and Lynch proof solidified the theorem."
+        },
+        {
+          "date": "Today",
+          "title": "Per-request tuning",
+          "description": "Databases expose consistency knobs per query."
+        }
+      ]
+    },
+    {
+      "type": "tags",
+      "items": ["#cap", "#distributed", "#system-design", "#block-demo"]
+    },
+    {
+      "type": "link",
+      "label": "Read about redundancy",
+      "href": "/engineering/redundancy",
+      "external": false
+    },
+    {
+      "type": "spacer",
+      "height": 16
+    },
+    {
+      "type": "contribute",
+      "title": "Add your own concept",
+      "text": "Copy article.template.json, use every block you need, send a PR.",
+      "repoUrl": "https://github.com/277pawan",
+      "buttonLabel": "Contribute on GitHub"
+    }
+  ]
+}

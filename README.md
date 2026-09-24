@@ -1,3 +1,13 @@
+# Pawan Bisht — Portfolio
+
+Personal portfolio with an **Engineering Concepts** blog: each topic is one JSON file (no new React page per article). SEO meta, JSON-LD, and sitemap generation are built in.
+
+**Authoring docs:** [src/content/blog/BLOG_CONTENT.md](src/content/blog/BLOG_CONTENT.md) — all block types, SEO fields, and examples (see live showcase: `articles/redundancy.json`).
+
+**Routes:** `/engineering` · `/engineering/:slug`
+
+---
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

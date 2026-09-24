@@ -1,0 +1,143 @@
+{
+  "slug": "react-form-toaster",
+  "title": "React-Form-Toaster",
+  "tagline": "Schema-driven forms for React",
+  "badge": "npm · v2.0.10",
+  "description": "Pass one JSON-like schema for fields, buttons, validation, and styling — the library handles layout, state, errors, password toggles, file uploads, and toasts automatically.",
+  "keywords": ["react-form-toaster", "react forms", "zod", "json schema forms", "npm"],
+  "coverImage": "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=1200&q=80",
+  "exploreUrl": "https://react-form-toaster.web.app/",
+  "exploreLabel": "Official documentation & demos",
+  "npmUrl": "https://www.npmjs.com/package/react-form-toaster",
+  "repoUrl": "https://github.com/277pawan/form-builder",
+  "blocks": [
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "Why it exists",
+      "text": "Forms repeat the same boilerplate — useState per field, error text, loading buttons. React-Form-Toaster centralizes that in a declarative schema with Zod validation and optional built-in toasts."
+    },
+    {
+      "type": "stats",
+      "items": [
+        { "label": "Version", "value": "2.0.10" },
+        { "label": "Schema driven", "value": "100%" },
+        { "label": "Modes", "value": "Modal + inline" },
+        { "label": "Validation", "value": "Zod" }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Install & setup"
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "npm install react-form-toaster\n# or\nyarn add react-form-toaster"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "filename": "main.jsx",
+      "code": "import Formbox from \"react-form-toaster\";\nimport \"react-form-toaster/dist/index.css\";"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Key strengths"
+    },
+    {
+      "type": "list",
+      "items": [
+        "100% schema & JSON driven — fields, buttons, validation, styling",
+        "Zero boilerplate — no repetitive hooks per input",
+        "Granular styling via className (Tailwind) and inline style",
+        "TypeScript & Zod integration",
+        "Modal & inline modes",
+        "Flexible toasts — built-in or toast={false} for your library",
+        "Array & conditional fields — showWhen visibility"
+      ]
+    },
+    {
+      "type": "columns",
+      "columns": [
+        {
+          "title": "mode=\"inline\"",
+          "body": "Embed as a card in your page — great for account settings, onboarding, and dashboards."
+        },
+        {
+          "title": "mode=\"modal\"",
+          "body": "Popup flows — delete confirmations, quick edits, and destructive actions."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Styling: className vs style"
+    },
+    {
+      "type": "paragraph",
+      "text": "Shipped Tailwind utilities work in className on fields, buttons, titles, and containers. Use style for arbitrary values (custom hex). When both set the same property, inline style wins."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "className=\"bg-pink-600 text-white rounded-xl px-4 py-3\"\nstyle={{ backgroundColor: \"#6366f1\", color: \"#ffffff\" }}"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Account form example"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "filename": "AccountForm.jsx",
+      "caption": "Validation, select, showWhen, password toggle, async submit, toasts.",
+      "code": "import Formbox from \"react-form-toaster\";\nimport \"react-form-toaster/dist/index.css\";\nimport { z } from \"zod\";\n\nconst schema = z.object({\n  firstName: z.string().min(1, \"First name is required\"),\n  email: z.string().email(),\n  accountType: z.enum([\"personal\", \"business\"]),\n  companyName: z.string().optional(),\n  password: z.string().min(8),\n});\n\nexport function AccountForm() {\n  return (\n    <Formbox\n      mode=\"inline\"\n      schema={schema}\n      onSubmit={async (data) => {\n        await new Promise((r) => setTimeout(r, 1500));\n        console.log(data);\n      }}\n      toast={{\n        loading: \"Creating account...\",\n        success: \"Account created!\",\n        error: \"Something went wrong\",\n        position: \"bottom-right\",\n      }}\n      fields={[\n        { name: \"firstName\", type: \"text\", label: \"First Name\", required: true },\n        { name: \"email\", type: \"email\", label: \"Email\", required: true },\n        {\n          name: \"accountType\",\n          type: \"select\",\n          label: \"Account Type\",\n          options: [\n            { label: \"Personal\", value: \"personal\" },\n            { label: \"Business\", value: \"business\" },\n          ],\n        },\n        {\n          name: \"companyName\",\n          type: \"text\",\n          label: \"Company\",\n          showWhen: { field: \"accountType\", equals: \"business\" },\n        },\n        {\n          name: \"password\",\n          type: \"password\",\n          label: \"Password\",\n          passwordToggle: true,\n          required: true,\n        },\n      ]}\n      buttons={[\n        {\n          name: \"Create Account\",\n          type: \"submit\",\n          loadingText: \"Creating...\",\n          style: { backgroundColor: \"#6366f1\", color: \"#fff\" },\n        },\n      ]}\n    />\n  );\n}"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Confirmation / destructive flows"
+    },
+    {
+      "type": "paragraph",
+      "text": "Same schema approach for delete-account, remove resource, reset data — type DELETE to confirm, modal mode, red submit button."
+    },
+    {
+      "type": "table",
+      "caption": "Core Formbox props (subset)",
+      "headers": ["Prop", "Purpose"],
+      "rows": [
+        ["fields / buttons", "JSON arrays defining UI"],
+        ["schema", "Zod validation"],
+        ["mode", "modal | inline"],
+        ["toast", "Built-in messages or false for react-hot-toast etc."],
+        ["errorPosition", "top | bottom for field errors"],
+        ["containerClassName", "Outer card Tailwind classes"]
+      ]
+    },
+    {
+      "type": "video",
+      "title": "Walkthrough video",
+      "comingSoon": true,
+      "comingSoonMessage": "Video walkthrough coming soon",
+      "comingSoonHint": "Until then, try the live User Form and Confirmation demos on the docs site."
+    },
+    {
+      "type": "linkCard",
+      "title": "Live documentation",
+      "description": "API reference, configuration, validation, styling guides, and interactive demos.",
+      "href": "https://react-form-toaster.web.app/"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Contribute",
+      "text": "Star the repo, open issues, or follow the Contributing Guide on GitHub — feedback shapes the roadmap."
+    }
+  ]
+}

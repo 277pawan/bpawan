@@ -1,0 +1,199 @@
+{
+  "slug": "cache",
+  "title": "Cache Really Matters",
+  "description": "Cache",
+  "keywords": [
+    "CAP theorem",
+    "distributed systems",
+    "consistency",
+    "availability",
+    "partition tolerance",
+    "system design",
+    "cache"
+  ],
+  "author": "Pawan Bisht",
+  "publishedAt": "2026-09-24",
+  "updatedAt": "2026-09-24",
+  "readingTimeMinutes": 10,
+  "featured": true,
+  "tags": ["cache", "performance", "memory"],
+  "relatedSlugs": ["redundancy", "idempotency"],
+  "coverImage": "https://images.unsplash.com/photo-1529078155058-5d716f45d604?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "ogImage": "https://images.unsplash.com/photo-1529078155058-5d716f45d604?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "A cache is a small, fast storage layer that keeps a copy of frequently or recently used data, so future requests for that data can be served faster than fetching it from the original (slower) source."
+    },
+
+    {
+      "level": 2,
+      "type": "heading",
+      "id": "cache-types",
+      "text": "Where caches show up?"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "CPU cache (L1/L2/L3) — stores data close to the processor so it doesn't have to fetch from RAM every time.",
+        "Browser cache — stores web page assets (images, CSS, JS) locally so a page loads faster on repeat visits.",
+        "DNS cache — stores resolved domain-to-IP mappings so lookups aren't repeated.",
+        "Database/query cache — stores results of expensive queries.",
+        "CDN (Content Delivery Network) — caches content geographically closer to users.",
+        "Application-level cache (e.g., Redis, Memcached) — stores computed results or session data in memory."
+      ]
+    },
+
+    {
+      "level": 3,
+      "type": "heading",
+      "id": "cache-policies",
+      "text": "Cache Write Policies"
+    },
+    {
+      "type": "jsonTree",
+      "root": "Cache Write",
+      "data": {
+        "one": "Write-Through",
+        "second": "Write-Back",
+        "third": "Write-Around"
+      }
+    },
+
+    {
+      "type": "heading",
+      "text": "Write-Through"
+    },
+    {
+      "type": "paragraph",
+      "text": "Data is written to both the cache and the main database at the same time (synchronously), before the write is considered complete."
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "App writes data",
+        "Data is written to the cache",
+        "Data is immediately also written to the database.",
+        "Only after both succeed does the app get a write successful response."
+      ]
+    },
+    {
+      "type": "compare",
+      "left": {
+        "title": "Pros",
+        "points": [
+          "Cache and database are always in sync - strong consistency",
+          "No data loss risk, since the database is updated immediately"
+        ]
+      },
+      "right": {
+        "title": "Cons",
+        "points": [
+          "Slower writes, since every write waits on the (slower) database too.",
+          "The cache gets filled with data that may never be read again, wasting cache space."
+        ]
+      }
+    },
+    {
+      "type": "callout",
+      "title": "Good For:",
+      "variant": "tip",
+      "text": "systems where consistency matters more than write speed — e.g., banking or inventory systems."
+    },
+
+    {
+      "type": "heading",
+      "text": "Write-Back"
+    },
+    {
+      "type": "paragraph",
+      "text": "Data is written only to the cache first, and the database is updated later, asynchronously — usually in a batch, or after a delay."
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "App writes data to the cache.",
+        "App immediately gets a success response — it doesn't wait for the database.",
+        "In the background, the cache periodically flushes changes to the database.",
+        "Multiple writes can be grouped together and written to the database in a batch."
+      ]
+    },
+    {
+      "type": "compare",
+      "left": {
+        "title": "Pros",
+        "points": [
+          "Very fast writes, since the app doesn't wait on the slower database.",
+          "Reduces database load by batching multiple writes together.",
+          "Works well for high-throughput workloads."
+        ]
+      },
+      "right": {
+        "title": "Cons",
+        "points": [
+          "Risk of data loss if the cache crashes before the async flush happens.",
+          "Cache and database can temporarily be out of sync.",
+          "More complex to implement because it needs a reliable flush or synchronization mechanism."
+        ]
+      }
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Good For:",
+      "text": "high-throughput systems where speed matters more than instant durability — e.g., analytics counters, logging systems, metrics, or social media like counts."
+    },
+
+    {
+      "type": "heading",
+      "text": "Write-Around"
+    },
+    {
+      "type": "paragraph",
+      "text": "Data is written directly to the database, bypassing the cache entirely. The cache is updated later when that data is read."
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "App writes data directly to the database.",
+        "The cache is not updated at write time.",
+        "When the data is requested later, the cache is checked first.",
+        "If the data is not in the cache, it results in a cache miss.",
+        "The data is fetched from the database and then stored in the cache."
+      ]
+    },
+    {
+      "type": "compare",
+      "left": {
+        "title": "Pros",
+        "points": [
+          "Avoids filling the cache with data that might not be read soon.",
+          "Reduces cache pollution from write-heavy workloads.",
+          "Keeps the cache focused on data that is actually being read."
+        ]
+      },
+      "right": {
+        "title": "Cons",
+        "points": [
+          "The first read after a write is usually a cache miss and is therefore slower.",
+          "Cache can briefly serve stale data if something else already cached the old value.",
+          "The cache is not populated at write time."
+        ]
+      }
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Good For:",
+      "text": "write-heavy workloads where written data isn't immediately re-read — e.g., logging, bulk data ingestion, or systems where newly written data is rarely accessed immediately."
+    },
+    {
+      "type": "tags",
+      "items": ["#cache", "#write-back", "#write-through", "#write-around"]
+    }
+  ]
+}

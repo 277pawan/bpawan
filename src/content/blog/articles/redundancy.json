@@ -1,0 +1,208 @@
+{
+  "slug": "redundancy",
+  "title": "Redundancy in Software Systems",
+  "description": "What redundancy means in engineering, when to add spare capacity vs duplication, and how it improves reliability without wasting cost.",
+  "keywords": ["redundancy", "high availability", "fault tolerance", "reliability engineering", "SRE"],
+  "author": "Pawan Bisht",
+  "publishedAt": "2026-01-10",
+  "updatedAt": "2026-09-20",
+  "category": "Engineering Concepts",
+  "tags": ["reliability", "systems", "SRE", "architecture"],
+  "coverImage": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=80",
+  "ogImage": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=80",
+  "readingTimeMinutes": 12,
+  "featured": true,
+  "relatedSlugs": ["idempotency"],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Redundancy is having more than one way to perform a critical function so that a single failure does not take the whole system down. Search engines love clear definitions — this article explains redundancy for builders, not buzzwords."
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "In one line",
+      "text": "Redundancy trades cost and complexity for the ability to survive partial failures."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "id": "why-it-matters",
+      "text": "Why redundancy matters"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Hardware fails silently (disks, NICs, power).",
+        "Deployments introduce bugs — rolling back needs healthy instances.",
+        "Traffic spikes need headroom, not perfect sizing."
+      ]
+    },
+    {
+      "type": "stats",
+      "items": [
+        { "label": "Uptime target", "value": "99.9%" },
+        { "label": "Allowed downtime / mo", "value": "~43m" },
+        { "label": "N+1 spare", "value": "1 node" },
+        { "label": "Regions (geo)", "value": "2+" }
+      ]
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "id": "types",
+      "text": "Common redundancy patterns"
+    },
+    {
+      "type": "columns",
+      "columns": [
+        {
+          "title": "Active / active",
+          "body": "All nodes serve traffic. Load balancers spread work. Fast failover but needs careful data consistency."
+        },
+        {
+          "title": "Active / passive",
+          "body": "Standby waits until health checks fail. Cheaper, but failover time depends on detection + promotion."
+        },
+        {
+          "title": "N+1 capacity",
+          "body": "Run N nodes worth of load on N+1 machines. One failure still leaves enough capacity for peak."
+        }
+      ]
+    },
+    {
+      "type": "compare",
+      "left": {
+        "title": "Without redundancy",
+        "points": ["Single AZ", "One DB primary", "Blast radius = entire app"]
+      },
+      "right": {
+        "title": "With redundancy",
+        "points": ["Multi-AZ replicas", "Read replicas + failover", "Isolated failure domains"]
+      }
+    },
+    {
+      "type": "table",
+      "caption": "Quick reference",
+      "headers": ["Pattern", "Cost", "Failover speed"],
+      "rows": [
+        ["Multi-instance behind LB", "Medium", "Seconds"],
+        ["Hot standby DB", "High", "Minutes"],
+        ["Cross-region active-active", "Very high", "Sub-second (with tradeoffs)"]
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Minimal health-check loop"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "filename": "health-router.js",
+      "code": "const backends = ['10.0.0.1', '10.0.0.2', '10.0.0.3'];\nconst healthy = new Set(backends);\n\nasync function ping(host) {\n  try {\n    const res = await fetch(`http://${host}/health`, { signal: AbortSignal.timeout(800) });\n    return res.ok;\n  } catch {\n    return false;\n  }\n}\n\nsetInterval(async () => {\n  for (const host of backends) {\n    (await ping(host) ? healthy.add(host) : healthy.delete(host));\n  }\n}, 5000);\n\nexport function pickBackend() {\n  const pool = backends.filter((h) => healthy.has(h));\n  if (!pool.length) throw new Error('no redundant path left');\n  return pool[Math.floor(Math.random() * pool.length)];\n}"
+    },
+    {
+      "type": "quote",
+      "text": "Everything fails all the time.",
+      "cite": "Werner Vogels, AWS"
+    },
+    {
+      "type": "colorPalette",
+      "colors": [
+        { "name": "Healthy", "hex": "#10b981" },
+        { "name": "Degraded", "hex": "#f59e0b" },
+        { "name": "Down", "hex": "#ef4444" },
+        { "name": "Brand accent", "hex": "#7843e9" }
+      ]
+    },
+    {
+      "type": "keyValue",
+      "entries": [
+        { "term": "RTO", "definition": "Recovery Time Objective — how long you can be down." },
+        { "term": "RPO", "definition": "Recovery Point Objective — how much data loss is acceptable." },
+        { "term": "Blast radius", "definition": "How much of the system one failure can affect." }
+      ]
+    },
+    {
+      "type": "checklist",
+      "items": [
+        { "text": "Health checks on every redundant tier", "checked": true },
+        { "text": "Automated failover tested quarterly", "checked": false },
+        { "text": "Runbooks for manual promotion", "checked": true }
+      ]
+    },
+    {
+      "type": "accordion",
+      "items": [
+        {
+          "title": "Is redundancy the same as backup?",
+          "body": "Backups recover past data; redundancy keeps live service available during failure. You usually want both."
+        },
+        {
+          "title": "When is redundancy overkill?",
+          "body": "For low-criticality internal tools with tolerant users, a single region and good backups may be enough."
+        }
+      ]
+    },
+    {
+      "type": "poll",
+      "id": "redundancy-poll-1",
+      "question": "What do you redundant first in a greenfield API?",
+      "hint": "Votes are stored locally in your browser (demo poll block).",
+      "options": [
+        { "id": "app", "label": "Stateless app instances" },
+        { "id": "db", "label": "Database replicas" },
+        { "id": "cache", "label": "Cache layer" },
+        { "id": "region", "label": "Second region" }
+      ]
+    },
+    {
+      "type": "timeline",
+      "events": [
+        {
+          "date": "T+0s",
+          "title": "Instance fails",
+          "description": "LB stops routing; clients retry."
+        },
+        {
+          "date": "T+5s",
+          "title": "Auto-scale replaces node",
+          "description": "Capacity restored if pool was N+1."
+        },
+        {
+          "date": "T+15m",
+          "title": "Postmortem",
+          "description": "Verify monitoring caught the failure."
+        }
+      ]
+    },
+    {
+      "type": "linkCard",
+      "title": "Google SRE Book — Chapter on HA",
+      "description": "Classic reference on reliability patterns.",
+      "href": "https://sre.google/sre-book/table-of-contents/"
+    },
+    {
+      "type": "tags",
+      "items": ["#redundancy", "#ha", "#sre", "#fault-tolerance"]
+    },
+    {
+      "type": "callout",
+      "variant": "warning",
+      "title": "Redundancy ≠ correctness",
+      "text": "Two wrong copies still wrong. Pair redundancy with idempotency, observability, and tested failover."
+    },
+    {
+      "type": "contribute",
+      "title": "Share what you studied",
+      "text": "Add your own engineering topic as JSON — copy article.template.json, use the block types from BLOG_CONTENT.md, and open a PR.",
+      "repoUrl": "https://github.com/277pawan",
+      "buttonLabel": "Contribute on GitHub"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "slug": "your-topic-slug",
+  "title": "Human-readable title (H1 / SEO title)",
+  "description": "150–160 chars for meta description and social previews.",
+  "keywords": ["primary keyword", "secondary", "engineering"],
+  "author": "Pawan Bisht",
+  "publishedAt": "2026-01-15",
+  "updatedAt": "2026-01-20",
+  "category": "Engineering Concepts",
+  "tags": ["reliability", "systems"],
+  "coverImage": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&q=80",
+  "ogImage": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&q=80",
+  "readingTimeMinutes": 8,
+  "featured": false,
+  "relatedSlugs": ["redundancy"],
+  "canonicalUrl": "",
+  "blocks": [
+    { "type": "heading", "level": 2, "id": "intro", "text": "Introduction" },
+    { "type": "paragraph", "text": "Plain paragraph text." },
+    { "type": "callout", "variant": "tip", "title": "Tip", "text": "Short callout." },
+    { "type": "code", "language": "javascript", "filename": "example.js", "code": "const x = 1;" },
+    { "type": "contribute", "repoUrl": "https://github.com/277pawan" }
+  ]
+}

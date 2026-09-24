@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 
 const coder = {
   name: "Pawan Bisht",
-  role: "Full Stack Developer",
+  role: "Full Stack · Open Source",
   location: "Dehradun, India",
-  skills: ["React", "NextJS", "NodeJS", "PostgreSQL"],
+  skills: ["React", "TypeScript", "Go", "PostgreSQL", "npm libs"],
   traits: ["Hard Worker", "Quick Learner", "Problem Solver"],
   stats: {
     experience: "2+ yrs",
-    projects: "20+",
+    projects: "25+",
     availability: "Open to work",
   },
   contact: {

@@ -2,7 +2,8 @@ import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { SparklesCore } from "./Sparkles";
 import { BackgroundBeams } from "../Helper.jsx";
-import { SkillPills, TerminalCodeCard } from "../../lib/TerminalCard";
+import { Link } from "react-router-dom";
+import { TerminalCodeCard } from "../../lib/TerminalCard";
 
 function Header() {
   const [heroSectionValue, setHeroSectionValue] = useState("");
@@ -63,7 +64,11 @@ function Header() {
   }, []);
 
   return (
-    <div className="relative w-full min-h-[100vh] flex items-center bg-black overflow-hidden font-sans selection:bg-indigo-500 selection:text-white">
+    <section
+      id="home"
+      className="relative w-full min-h-[100vh] flex items-center bg-black overflow-hidden font-sans selection:bg-indigo-500 selection:text-white scroll-mt-20"
+      aria-label="Introduction"
+    >
       {/* Background Beams */}
       <div className="absolute inset-0 pointer-events-none">
         <BackgroundBeams className="opacity-40" />
@@ -81,13 +86,13 @@ function Header() {
       {/* ── Two-column layout ── */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 py-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[100vh]">
         {/* LEFT — Text content */}
-        <div className="flex flex-col items-start text-left gap-8">
+        <div className="flex flex-col items-start text-left gap-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
           >
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-white drop-shadow-2xl leading-[1.05]">
+            <h1 className="text-5xl md:text-3xl lg:text-5xl font-medium leading-relaxed tracking-wide font-black text-white drop-shadow-2xl">
               I'm{" "}
               <span className="bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-gray-500">
                 Pawan Bisht
@@ -101,9 +106,12 @@ function Header() {
             transition={{ delay: 0.3, duration: 0.8 }}
             className="text-sm md:text-base text-gray-400 max-w-md leading-relaxed font-light tracking-wide"
           >
-            I'm a Full Stack Developer who brings ideas to life with clean,
-            efficient code. From dynamic frontends to robust backends, I craft
-            seamless digital experiences.
+            Full stack developer & open-source maintainer — creator of{" "}
+            <strong className="text-gray-200 font-medium">React-Form-Toaster</strong>{" "}
+            and{" "}
+            <strong className="text-gray-200 font-medium">Revenant</strong>.
+            I ship schema-driven UX and backup verification tooling teams can
+            trust. Online as <strong className="text-gray-200 font-medium">277pawan</strong>.
           </motion.p>
 
           {/* Typewriter Badge */}
@@ -125,35 +133,31 @@ function Header() {
             </div>
           </motion.div>
 
-          {/* CTA Button */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7, duration: 0.8 }}
+            className="flex flex-wrap gap-3"
           >
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => scrollToSection("about")}
-              className="group relative px-8 py-3 bg-white text-black font-bold rounded-full overflow-hidden transition-all hover:bg-gray-100 hover:shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)]"
+              onClick={() => scrollToSection("projects")}
+              className="group relative px-8 py-3 bg-white text-black font-bold rounded-full overflow-hidden transition-all hover:bg-gray-100"
             >
               <span className="relative z-10 flex items-center gap-2">
-                Explore Portfolio
-                <svg
-                  className="w-4 h-4 transition-transform group-hover:translate-y-0.5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 14l-7 7m0 0l-7-7m7 7V3"
-                  />
-                </svg>
+                View projects
               </span>
             </motion.button>
+            <Link to="/engineering">
+              <motion.span
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-block px-8 py-3 border border-white/20 text-white font-semibold rounded-full hover:border-[#7843e9] hover:text-[#c4b5fd] transition-colors"
+              >
+                Engineering blog
+              </motion.span>
+            </Link>
           </motion.div>
         </div>
 
@@ -198,7 +202,7 @@ function Header() {
 
       {/* Bottom Gradient Fade */}
       <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-black via-black/50 to-transparent pointer-events-none" />
-    </div>
+    </section>
   );
 }
 
