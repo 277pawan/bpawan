@@ -211,8 +211,8 @@ function renderPage(template, { title, description, keywords, url, image, jsonLd
     .join("\n    ");
   html = html.replace("</head>", `    ${ld}\n  </head>`);
   html = html.replace(
-    /<div id="root"><\/div>/,
-    `<div id="root">\n${body}\n    </div>`
+    /<div id="root">[\s\S]*?<\/div>\s*(?=<script type="application\/ld\+json">|<script)/,
+    `<div id="root">\n${body}\n    </div>\n    `
   );
   html = html.replace(
     /(href|src)="(?!https?:|\/|#|data:)([^"]+)"/g,
@@ -269,7 +269,7 @@ function main() {
           itemListElement: articles.map((a, i) => ({
             "@type": "ListItem",
             position: i + 1,
-            url: `${origin}/${a.slug}`,
+            url: `${origin}/engineering/${a.slug}`,
             name: a.title,
           })),
         },
@@ -281,7 +281,7 @@ function main() {
         ${articles
           .map(
             (a) =>
-              `<li><a href="/${escapeHtml(a.slug)}">${escapeHtml(a.title)}</a><p>${escapeHtml(a.description || "")}</p></li>`
+              `<li><a href="/engineering/${escapeHtml(a.slug)}">${escapeHtml(a.title)}</a><p>${escapeHtml(a.description || "")}</p></li>`
           )
           .join("\n        ")}
       </ul>
@@ -290,7 +290,7 @@ function main() {
   );
 
   for (const article of articles) {
-    const url = `${origin}/${article.slug}`;
+    const url = `${origin}/engineering/${article.slug}`;
     const description = article.description || article.title;
     const keywords = (article.keywords || article.tags || []).join(", ");
     const title = `${article.title} | Pawan Bisht`;
@@ -336,12 +336,56 @@ function main() {
       </article>
     </main>`,
     });
-    writeRoute(article.slug, page);
     writeRoute(path.join("engineering", article.slug), page);
   }
 
+  const homeBody = `<main>
+      <h1>Pawan Bisht (277pawan)</h1>
+      <p>Official website of Pawan Bisht — also known as 277pawan and two77pawan — at two77pawan.onrender.com. Full stack developer. Open source: React-Form-Toaster and Revenant.</p>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/engineering">Engineering concepts</a>
+        <a href="/projects/react-form-toaster">React-Form-Toaster</a>
+        <a href="/projects/revenant">Revenant</a>
+      </nav>
+      <ul>
+        ${articles
+          .map(
+            (a) =>
+              `<li><a href="/engineering/${escapeHtml(a.slug)}">${escapeHtml(a.title)}</a></li>`
+          )
+          .join("\n        ")}
+      </ul>
+    </main>`;
+  fs.writeFileSync(
+    indexFile,
+    renderPage(template, {
+      title: "Pawan Bisht (277pawan) | Full Stack Developer",
+      description:
+        "Official site of Pawan Bisht (277pawan / two77pawan) — full stack developer. Portfolio, React-Form-Toaster, Revenant, and engineering articles at two77pawan.onrender.com.",
+      keywords:
+        "Pawan Bisht, 277pawan, two77pawan, Pawan Bisht portfolio, two77pawan.onrender.com",
+      url: `${origin}/`,
+      image: fallbackImage,
+      jsonLd: {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        name: "Pawan Bisht",
+        alternateName: ["277pawan", "two77pawan", "b277pawan"],
+        url: `${origin}/`,
+        jobTitle: "Full Stack Developer",
+        sameAs: [
+          "https://github.com/277pawan",
+          "https://www.linkedin.com/in/pawan-bisht-a943161b9/",
+        ],
+      },
+      body: homeBody,
+    }),
+    "utf8"
+  );
+
   console.log(
-    `prerender-seo: wrote /engineering and ${articles.length} article page(s) at /<slug>`
+    `prerender-seo: wrote home, /engineering, and ${articles.length} article page(s)`
   );
 }
 

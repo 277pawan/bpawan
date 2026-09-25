@@ -34,7 +34,7 @@ function readArticles() {
       const data = readJson(path.join(articlesDir, f));
       const slug = data.slug || f.replace(/\.json$/, "");
       return {
-        loc: `${origin}/${slug}`,
+        loc: `${origin}/engineering/${slug}`,
         lastmod: lastmod(data.updatedAt || data.publishedAt),
         priority: "0.8",
       };
