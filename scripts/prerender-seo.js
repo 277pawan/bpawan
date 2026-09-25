@@ -269,7 +269,7 @@ function main() {
           itemListElement: articles.map((a, i) => ({
             "@type": "ListItem",
             position: i + 1,
-            url: `${origin}/engineering/${a.slug}`,
+            url: `${origin}/${a.slug}`,
             name: a.title,
           })),
         },
@@ -281,7 +281,7 @@ function main() {
         ${articles
           .map(
             (a) =>
-              `<li><a href="/engineering/${escapeHtml(a.slug)}">${escapeHtml(a.title)}</a><p>${escapeHtml(a.description || "")}</p></li>`
+              `<li><a href="/${escapeHtml(a.slug)}">${escapeHtml(a.title)}</a><p>${escapeHtml(a.description || "")}</p></li>`
           )
           .join("\n        ")}
       </ul>
@@ -290,13 +290,11 @@ function main() {
   );
 
   for (const article of articles) {
-    const url = `${origin}/engineering/${article.slug}`;
+    const url = `${origin}/${article.slug}`;
     const description = article.description || article.title;
     const keywords = (article.keywords || article.tags || []).join(", ");
     const title = `${article.title} | Pawan Bisht`;
-    writeRoute(
-      path.join("engineering", article.slug),
-      renderPage(template, {
+    const page = renderPage(template, {
         title,
         description,
         keywords,
@@ -337,12 +335,13 @@ function main() {
         ${blocksToHtml(article.blocks)}
       </article>
     </main>`,
-      })
-    );
+    });
+    writeRoute(article.slug, page);
+    writeRoute(path.join("engineering", article.slug), page);
   }
 
   console.log(
-    `prerender-seo: wrote /engineering and ${articles.length} article page(s)`
+    `prerender-seo: wrote /engineering and ${articles.length} article page(s) at /<slug>`
   );
 }
 

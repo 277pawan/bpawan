@@ -137,7 +137,7 @@ export default function BlogList() {
                   <div className="min-w-0 flex-1">
                     <h2 className="text-base md:text-lg font-semibold leading-snug">
                       <Link
-                        to={`/engineering/${article.slug}`}
+                        to={`/${article.slug}`}
                         className="text-[#7ea6ff] hover:text-white hover:underline underline-offset-4 decoration-white/20"
                       >
                         {article.title}
@@ -166,7 +166,7 @@ export default function BlogList() {
                 <div className="absolute top-3 right-3 z-10">
                   <LikeButton slug={article.slug} compact />
                 </div>
-                <Link to={`/engineering/${article.slug}`} className="group block">
+                <Link to={`/${article.slug}`} className="group block">
                   {article.coverImage && (
                     <div className="aspect-[2/1] overflow-hidden bg-[#111]">
                       <img

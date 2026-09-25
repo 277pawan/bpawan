@@ -119,7 +119,7 @@ export default function BlogArticle() {
               {relatedAll.map((a) => (
                 <li key={a.slug}>
                   <Link
-                    to={`/engineering/${a.slug}`}
+                    to={`/${a.slug}`}
                     className="text-[#a78bfa] hover:text-white transition-colors"
                   >
                     {a.title}
