@@ -28,7 +28,7 @@ const payload = {
   slug: article.slug || slug,
   title: article.title,
   description: article.description,
-  url: `${origin}/${article.slug || slug}`,
+  url: `${origin}/engineering/${article.slug || slug}`,
   tags: article.tags || [],
   publishedAt: article.publishedAt,
 };

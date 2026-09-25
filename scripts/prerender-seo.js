@@ -1,174 +1,29 @@
 /**
- * After `react-scripts build`, write a real HTML file for /engineering
- * and every article. A new articles/*.json file is included on the next build.
- * Render serves these files directly, ahead of the SPA rewrite.
+ * After `react-scripts build`, write real HTML for every public route.
+ * New article/project JSON files are included automatically on the next build.
  */
 const fs = require("fs");
 const path = require("path");
+const {
+  origin,
+  escapeHtml,
+  loadArticles,
+  loadProjects,
+  articlePath,
+  articleUrl,
+  projectPath,
+  projectUrl,
+  blocksToHtml,
+  wordCount,
+  imageUrl,
+  buildSitemapEntries,
+  writeSitemap,
+} = require("./seo-utils");
 
-const origin = (process.env.REACT_APP_SITE_URL || "https://two77pawan.onrender.com").replace(
-  /\/$/,
-  ""
-);
-const root = path.join(__dirname, "..");
-const buildDir = path.join(root, "build");
-const articlesDir = path.join(root, "src/content/blog/articles");
+const buildDir = path.join(__dirname, "../build");
 const indexFile = path.join(buildDir, "index.html");
-
-function readJson(file) {
-  return JSON.parse(fs.readFileSync(file, "utf8"));
-}
-
-function escapeHtml(value) {
-  return String(value ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-}
-
-function loadArticles() {
-  return fs
-    .readdirSync(articlesDir)
-    .filter((f) => f.endsWith(".json") && !f.startsWith("article.template"))
-    .map((f) => {
-      const data = readJson(path.join(articlesDir, f));
-      const slug = data.slug || f.replace(/\.json$/, "");
-      return { ...data, slug };
-    })
-    .filter((a) => a.slug && a.title && Array.isArray(a.blocks))
-    .sort((a, b) => new Date(b.publishedAt || 0) - new Date(a.publishedAt || 0));
-}
-
-function itemText(item) {
-  if (typeof item === "string") return item;
-  return item?.text || item?.label || "";
-}
-
-function blocksToHtml(blocks) {
-  return (blocks || [])
-    .map((block) => {
-      switch (block.type) {
-        case "heading": {
-          const level = Math.min(4, Math.max(2, Number(block.level) || 2));
-          const id = block.id ? ` id="${escapeHtml(block.id)}"` : "";
-          return `<h${level}${id}>${escapeHtml(block.text)}</h${level}>`;
-        }
-        case "paragraph":
-        case "text":
-          return `<p>${escapeHtml(block.text)}</p>`;
-        case "richText":
-          return block.html || "";
-        case "callout":
-          return `<aside><strong>${escapeHtml(block.title || "")}</strong> ${escapeHtml(block.text || "")}</aside>`;
-        case "quote":
-          return `<blockquote><p>${escapeHtml(block.text || "")}</p>${
-            block.cite ? `<footer>${escapeHtml(block.cite)}</footer>` : ""
-          }</blockquote>`;
-        case "list": {
-          const tag = block.ordered ? "ol" : "ul";
-          const items = (block.items || [])
-            .map((item) => `<li>${escapeHtml(itemText(item))}</li>`)
-            .join("");
-          return `<${tag}>${items}</${tag}>`;
-        }
-        case "checklist":
-          return `<ul>${(block.items || [])
-            .map((item) => `<li>${escapeHtml(item.text || "")}</li>`)
-            .join("")}</ul>`;
-        case "code":
-          return `<pre><code>${escapeHtml(block.code || "")}</code></pre>`;
-        case "image":
-          return `<figure><img src="${escapeHtml(block.src)}" alt="${escapeHtml(block.alt || "")}" />${
-            block.caption ? `<figcaption>${escapeHtml(block.caption)}</figcaption>` : ""
-          }</figure>`;
-        case "table": {
-          const head = (block.headers || []).map((h) => `<th>${escapeHtml(h)}</th>`).join("");
-          const rows = (block.rows || [])
-            .map(
-              (row) =>
-                `<tr>${row.map((cell) => `<td>${escapeHtml(cell)}</td>`).join("")}</tr>`
-            )
-            .join("");
-          return `<table><thead><tr>${head}</tr></thead><tbody>${rows}</tbody></table>`;
-        }
-        case "link":
-          return `<p><a href="${escapeHtml(block.href)}">${escapeHtml(block.label || block.href)}</a></p>`;
-        case "linkCard":
-          return `<p><a href="${escapeHtml(block.href)}">${escapeHtml(block.title || block.href)}</a> ${escapeHtml(block.description || "")}</p>`;
-        case "accordion":
-          return (block.items || [])
-            .map(
-              (item) =>
-                `<section><h3>${escapeHtml(item.title || "")}</h3><p>${escapeHtml(item.body || "")}</p></section>`
-            )
-            .join("");
-        case "columns":
-          return (block.columns || [])
-            .map(
-              (col) =>
-                `<section><h3>${escapeHtml(col.title || "")}</h3><p>${escapeHtml(col.body || "")}</p></section>`
-            )
-            .join("");
-        case "compare":
-          return [block.left, block.right]
-            .filter(Boolean)
-            .map(
-              (side) =>
-                `<section><h3>${escapeHtml(side.title || "")}</h3><ul>${(side.points || [])
-                  .map((p) => `<li>${escapeHtml(p)}</li>`)
-                  .join("")}</ul></section>`
-            )
-            .join("");
-        case "stats":
-          return `<ul>${(block.items || [])
-            .map((s) => `<li>${escapeHtml(s.value)} ${escapeHtml(s.label)}</li>`)
-            .join("")}</ul>`;
-        case "keyValue":
-          return `<dl>${(block.entries || [])
-            .map(
-              (e) =>
-                `<dt>${escapeHtml(e.term)}</dt><dd>${escapeHtml(e.definition)}</dd>`
-            )
-            .join("")}</dl>`;
-        case "timeline":
-          return `<ol>${(block.events || [])
-            .map(
-              (ev) =>
-                `<li><strong>${escapeHtml(ev.title)}</strong> ${escapeHtml(ev.description || "")}</li>`
-            )
-            .join("")}</ol>`;
-        case "poll":
-          return `<section><h3>${escapeHtml(block.question || "")}</h3><ul>${(block.options || [])
-            .map((opt) => `<li>${escapeHtml(opt.label || "")}</li>`)
-            .join("")}</ul></section>`;
-        case "contribute":
-          return `<section><h3>${escapeHtml(block.title || "Contribute a topic")}</h3><p>${escapeHtml(block.text || "")}</p></section>`;
-        case "tags":
-          return `<p>${(block.items || []).map((t) => escapeHtml(t)).join(", ")}</p>`;
-        case "divider":
-        case "spacer":
-        case "related":
-        case "color":
-        case "colorPalette":
-          return "";
-        case "video":
-          return block.title ? `<p>${escapeHtml(block.title)}</p>` : "";
-        default: {
-          const text = [block.text, block.title].filter(Boolean).join(" ");
-          return text ? `<p>${escapeHtml(text)}</p>` : "";
-        }
-      }
-    })
-    .join("\n");
-}
-
-function wordCount(blocks) {
-  return blocksToHtml(blocks)
-    .replace(/<[^>]+>/g, " ")
-    .split(/\s+/)
-    .filter(Boolean).length;
-}
+const fallbackImage = `${origin}/20230521_084703.jpg`;
+const googleVerification = process.env.REACT_APP_GOOGLE_SITE_VERIFICATION || "";
 
 function upsertMeta(html, attr, key, content) {
   if (!content) return html;
@@ -186,19 +41,23 @@ function upsertCanonical(html, url) {
   return html.replace("</head>", `    ${tag}\n  </head>`);
 }
 
-function renderPage(template, { title, description, keywords, url, image, jsonLd, body }) {
+function renderPage(template, { title, description, keywords, url, image, ogType, jsonLd, body }) {
   let html = template;
   html = html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(title)}</title>`);
   html = upsertMeta(html, "name", "description", description);
   html = upsertMeta(html, "name", "keywords", keywords);
   html = upsertMeta(html, "name", "author", "Pawan Bisht");
   html = upsertMeta(html, "name", "robots", "index, follow, max-image-preview:large");
+  if (googleVerification) {
+    html = upsertMeta(html, "name", "google-site-verification", googleVerification);
+  }
   html = upsertMeta(html, "property", "og:title", title);
   html = upsertMeta(html, "property", "og:description", description);
   html = upsertMeta(html, "property", "og:url", url);
-  html = upsertMeta(html, "property", "og:type", "website");
+  html = upsertMeta(html, "property", "og:type", ogType || "website");
   html = upsertMeta(html, "property", "og:image", image);
   html = upsertMeta(html, "property", "og:site_name", "Pawan Bisht");
+  html = upsertMeta(html, "property", "og:locale", "en_US");
   html = upsertMeta(html, "name", "twitter:card", "summary_large_image");
   html = upsertMeta(html, "name", "twitter:title", title);
   html = upsertMeta(html, "name", "twitter:description", description);
@@ -227,20 +86,16 @@ function writeRoute(route, html) {
   fs.writeFileSync(path.join(dir, "index.html"), html, "utf8");
 }
 
-function imageUrl(article) {
-  const image = article?.ogImage || article?.coverImage || "/20230521_084703.jpg";
-  if (image.startsWith("http")) return image;
-  return `${origin}${image.startsWith("/") ? "" : "/"}${image}`;
-}
-
 function main() {
   if (!fs.existsSync(indexFile)) {
     console.error("prerender-seo: build/index.html missing. Run the production build first.");
     process.exit(1);
   }
+
   const template = fs.readFileSync(indexFile, "utf8");
   const articles = loadArticles();
-  const fallbackImage = `${origin}/20230521_084703.jpg`;
+  const projects = loadProjects();
+  let pageCount = 0;
 
   const listDescription =
     "Plain-language engineering articles on redundancy, CAP theorem, cache, idempotency, reliability, and system design by Pawan Bisht (277pawan).";
@@ -269,7 +124,7 @@ function main() {
           itemListElement: articles.map((a, i) => ({
             "@type": "ListItem",
             position: i + 1,
-            url: `${origin}/engineering/${a.slug}`,
+            url: articleUrl(a.slug),
             name: a.title,
           })),
         },
@@ -281,54 +136,56 @@ function main() {
         ${articles
           .map(
             (a) =>
-              `<li><a href="/engineering/${escapeHtml(a.slug)}">${escapeHtml(a.title)}</a><p>${escapeHtml(a.description || "")}</p></li>`
+              `<li><a href="${articlePath(a.slug)}">${escapeHtml(a.title)}</a><p>${escapeHtml(a.description || "")}</p></li>`
           )
           .join("\n        ")}
       </ul>
     </main>`,
     })
   );
+  pageCount += 1;
 
   for (const article of articles) {
-    const url = `${origin}/engineering/${article.slug}`;
+    const url = articleUrl(article.slug);
     const description = article.description || article.title;
     const keywords = (article.keywords || article.tags || []).join(", ");
     const title = `${article.title} | Pawan Bisht`;
     const page = renderPage(template, {
-        title,
-        description,
-        keywords,
-        url,
-        image: imageUrl(article),
-        jsonLd: [
-          {
-            "@context": "https://schema.org",
-            "@type": "TechArticle",
-            headline: article.title,
-            description,
-            image: imageUrl(article),
-            datePublished: article.publishedAt,
-            dateModified: article.updatedAt || article.publishedAt,
-            keywords,
-            articleSection: article.category || "Engineering Concepts",
-            wordCount: wordCount(article.blocks),
-            author: { "@type": "Person", name: article.author || "Pawan Bisht", url: origin },
-            publisher: { "@type": "Person", name: "Pawan Bisht", url: origin },
-            mainEntityOfPage: { "@type": "WebPage", "@id": url },
-          },
-          {
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Home", item: origin },
-              { "@type": "ListItem", position: 2, name: "Engineering", item: listUrl },
-              { "@type": "ListItem", position: 3, name: article.title, item: url },
-            ],
-          },
-        ],
-        body: `<main>
+      title,
+      description,
+      keywords,
+      url,
+      image: imageUrl(article),
+      ogType: "article",
+      jsonLd: [
+        {
+          "@context": "https://schema.org",
+          "@type": "TechArticle",
+          headline: article.title,
+          description,
+          image: imageUrl(article),
+          datePublished: article.publishedAt,
+          dateModified: article.updatedAt || article.publishedAt,
+          keywords,
+          articleSection: article.category || "Engineering Concepts",
+          wordCount: wordCount(article.blocks),
+          author: { "@type": "Person", name: article.author || "Pawan Bisht", url: origin },
+          publisher: { "@type": "Person", name: "Pawan Bisht", url: origin },
+          mainEntityOfPage: { "@type": "WebPage", "@id": url },
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: origin },
+            { "@type": "ListItem", position: 2, name: "Engineering", item: listUrl },
+            { "@type": "ListItem", position: 3, name: article.title, item: url },
+          ],
+        },
+      ],
+      body: `<main>
       <article>
-        <p>Engineering concepts</p>
+        <p><a href="/engineering">Engineering concepts</a></p>
         <h1>${escapeHtml(article.title)}</h1>
         <p>${escapeHtml(description)}</p>
         <p>${escapeHtml(article.author || "Pawan Bisht")}</p>
@@ -337,6 +194,43 @@ function main() {
     </main>`,
     });
     writeRoute(path.join("engineering", article.slug), page);
+    writeRoute(article.slug, page);
+    pageCount += 2;
+  }
+
+  for (const project of projects) {
+    const url = projectUrl(project.slug);
+    const description = project.description || project.tagline || project.title;
+    const keywords = (project.keywords || []).join(", ");
+    const title = `${project.title} | Pawan Bisht`;
+    writeRoute(
+      path.join("projects", project.slug),
+      renderPage(template, {
+        title,
+        description,
+        keywords,
+        url,
+        image: imageUrl(project),
+        jsonLd: {
+          "@context": "https://schema.org",
+          "@type": "SoftwareSourceCode",
+          name: project.title,
+          description,
+          url,
+          author: { "@type": "Person", name: "Pawan Bisht", url: origin },
+        },
+        body: `<main>
+      <article>
+        <p><a href="/#projects">Projects</a></p>
+        <h1>${escapeHtml(project.title)}</h1>
+        <p>${escapeHtml(project.tagline || "")}</p>
+        <p>${escapeHtml(description)}</p>
+        ${blocksToHtml(project.blocks || [])}
+      </article>
+    </main>`,
+      })
+    );
+    pageCount += 1;
   }
 
   const homeBody = `<main>
@@ -348,15 +242,17 @@ function main() {
         <a href="/projects/react-form-toaster">React-Form-Toaster</a>
         <a href="/projects/revenant">Revenant</a>
       </nav>
+      <h2>Engineering articles</h2>
       <ul>
         ${articles
           .map(
             (a) =>
-              `<li><a href="/engineering/${escapeHtml(a.slug)}">${escapeHtml(a.title)}</a></li>`
+              `<li><a href="${articlePath(a.slug)}">${escapeHtml(a.title)}</a></li>`
           )
           .join("\n        ")}
       </ul>
     </main>`;
+
   fs.writeFileSync(
     indexFile,
     renderPage(template, {
@@ -367,25 +263,45 @@ function main() {
         "Pawan Bisht, 277pawan, two77pawan, Pawan Bisht portfolio, two77pawan.onrender.com",
       url: `${origin}/`,
       image: fallbackImage,
-      jsonLd: {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        name: "Pawan Bisht",
-        alternateName: ["277pawan", "two77pawan", "b277pawan"],
-        url: `${origin}/`,
-        jobTitle: "Full Stack Developer",
-        sameAs: [
-          "https://github.com/277pawan",
-          "https://www.linkedin.com/in/pawan-bisht-a943161b9/",
-        ],
-      },
+      jsonLd: [
+        {
+          "@context": "https://schema.org",
+          "@type": "Person",
+          name: "Pawan Bisht",
+          alternateName: ["277pawan", "two77pawan", "b277pawan"],
+          url: `${origin}/`,
+          jobTitle: "Full Stack Developer",
+          sameAs: [
+            "https://github.com/277pawan",
+            "https://www.linkedin.com/in/pawan-bisht-a943161b9/",
+          ],
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "Pawan Bisht Portfolio",
+          url: `${origin}/`,
+          description:
+            "Portfolio and engineering articles by Pawan Bisht (277pawan).",
+          potentialAction: {
+            "@type": "SearchAction",
+            target: `${origin}/engineering?q={search_term_string}`,
+            "query-input": "required name=search_term_string",
+          },
+        },
+      ],
       body: homeBody,
     }),
     "utf8"
   );
+  pageCount += 1;
+
+  const sitemapEntries = buildSitemapEntries(articles, projects);
+  writeSitemap(path.join(buildDir, "sitemap.xml"), sitemapEntries);
+  writeSitemap(path.join(__dirname, "../public/sitemap.xml"), sitemapEntries);
 
   console.log(
-    `prerender-seo: wrote home, /engineering, and ${articles.length} article page(s)`
+    `prerender-seo: wrote ${pageCount} HTML page(s) and ${sitemapEntries.length} sitemap URL(s)`
   );
 }
 

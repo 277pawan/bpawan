@@ -16,8 +16,10 @@ function StripIndexHtml() {
 
 function ShortArticle() {
   const { slug } = useParams();
-  if (!getArticleBySlug(slug)) return <Navigate to="/" replace />;
-  return <BlogArticle />;
+  if (getArticleBySlug(slug)) {
+    return <Navigate to={`/engineering/${slug}`} replace />;
+  }
+  return <Navigate to="/" replace />;
 }
 
 function App() {

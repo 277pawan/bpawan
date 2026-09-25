@@ -53,7 +53,9 @@ export default function SeoHead({ article, path = "/engineering", pageSeo, artic
     const origin = DEFAULT_ORIGIN.replace(/\/$/, "");
     const isHome = Boolean(pageSeo && !article);
     const basePath = pageSeo?.path ?? path;
-    const url = article ? `${origin}/${article.slug}` : `${origin}${basePath}`;
+    const url = article
+      ? `${origin}/engineering/${article.slug}`
+      : `${origin}${basePath}`;
 
     const title = article
       ? `${article.title} | Pawan Bisht`
@@ -181,7 +183,7 @@ export default function SeoHead({ article, path = "/engineering", pageSeo, artic
           itemListElement: articles.map((a, i) => ({
             "@type": "ListItem",
             position: i + 1,
-            url: `${origin}/${a.slug}`,
+            url: `${origin}/engineering/${a.slug}`,
             name: a.title,
           })),
         },
