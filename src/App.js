@@ -1,4 +1,11 @@
-import { BrowserRouter, Navigate, Route, Routes, useLocation, useParams } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useParams,
+} from "react-router-dom";
 import "./App.css";
 import Navbar from "./Component/Navbar/Navbar";
 import BlogList from "./Component/Blog/BlogList";
@@ -27,13 +34,16 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <ScrollToTop />
-        <Navbar />
+        {/*      <Navbar /> */}
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/index.html" element={<StripIndexHtml />} />
           <Route path="/engineering" element={<BlogList />} />
           <Route path="/engineering/index.html" element={<StripIndexHtml />} />
-          <Route path="/engineering/:slug/index.html" element={<StripIndexHtml />} />
+          <Route
+            path="/engineering/:slug/index.html"
+            element={<StripIndexHtml />}
+          />
           <Route path="/engineering/:slug" element={<BlogArticle />} />
           <Route path="/projects/:slug" element={<ProjectPage />} />
           <Route path="/:slug/index.html" element={<StripIndexHtml />} />

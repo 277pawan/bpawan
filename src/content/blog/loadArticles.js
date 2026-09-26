@@ -12,6 +12,7 @@ const articles = articleContext
     const mod = articleContext(key);
     const data = mod.default ?? mod;
     const slugFromFile = key.replace(/^\.\//, "").replace(/\.json$/, "");
+
     return {
       ...data,
       slug: data.slug || slugFromFile,
@@ -21,8 +22,7 @@ const articles = articleContext
 
 export function getAllArticles() {
   return [...articles].sort(
-    (a, b) =>
-      new Date(b.publishedAt || 0) - new Date(a.publishedAt || 0)
+    (a, b) => new Date(b.publishedAt || 0) - new Date(a.publishedAt || 0),
   );
 }
 

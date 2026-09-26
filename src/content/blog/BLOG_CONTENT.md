@@ -70,6 +70,7 @@ Every block has `"type": "<name>"`. Optional `"id"` helps headings (anchor links
 | type | Fields |
 |------|--------|
 | `code` | `code`, optional `language`, optional `filename`, optional `caption` |
+| `flowDiagram` | `text` (multiline) or `lines` (string array), optional `caption`. Centered monospace flow (arrows, steps). Alias: `flow`. |
 | `jsonTree` | `data` (object or JSON string), optional `root`, optional `title`. Alias: `objectTree`. |
 | `table` | `headers` (array), `rows` (array of arrays), optional `caption` |
 | `list` | `items` (strings or `{text}`), optional `ordered` (boolean) |

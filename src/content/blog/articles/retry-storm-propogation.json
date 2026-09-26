@@ -1,0 +1,556 @@
+{
+  "slug": "retry-storm-propogation",
+  "title": "Retry Storm Propagation",
+  "description": "How uncontrolled retries amplify outages, and practical patterns: exponential backoff, jitter, limits, timeouts, and idempotent side effects.",
+  "keywords": ["retry storm", "exponential backoff", "jitter", "timeouts", "idempotency", "distributed systems"],
+  "author": "Pawan Bisht",
+  "publishedAt": "2026-09-25",
+  "tags": ["retry", "reliability", "distributed-systems"],
+  "categories": ["engineering"],
+  "readingTimeMinutes": 12,
+  "featured": true,
+  "relatedSlugs": ["cache", "redundancy"],
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Retries feel like reliability"
+    },
+    {
+      "type": "text",
+      "text": "Until everyone starts retrying at the same time. The service goes down:"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Request fails",
+        "Client retries",
+        "Service is still struggling",
+        "More requests arrive",
+        "More retries happen",
+        "Load increases",
+        "Service gets even slower",
+        "More requests time out",
+        "More retries"
+      ]
+    },
+    {
+      "type": "richText",
+      "html": "Now your <b>reliability mechanism</b> is helping create the outage.<br>This is a retry storm."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Retries aren't inherently bad"
+    },
+    {
+      "type": "text",
+      "text": "The problem is retrying without thinking about:"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Exponential backoff",
+        "Jitter",
+        "Maximum retry attempts",
+        "Timeouts",
+        "Circuit breakers",
+        "Idempotency",
+        "Which failures should actually be retried"
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Why This Is Dangerous"
+    },
+    {
+      "type": "text",
+      "text": "Suppose 100,000 clients all make a request."
+    },
+    {
+      "type": "text",
+      "text": "The service fails."
+    },
+    {
+      "type": "text",
+      "text": "If every client immediately retries:"
+    },
+    {
+      "type": "flowDiagram",
+      "lines": [
+        "100,000 original requests",
+        "        ↓",
+        "100,000 retries",
+        "        ↓",
+        "200,000 requests"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "If those retries fail and everyone retries again:"
+    },
+    {
+      "type": "flowDiagram",
+      "lines": [
+        "200,000",
+        "   ↓",
+        "200,000 more retries",
+        "   ↓",
+        "400,000 requests"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "The retry mechanism can amplify the original problem."
+    },
+    {
+      "type": "text",
+      "text": "The important lesson:"
+    },
+    {
+      "type": "quote",
+      "text": "A retry is additional traffic. Never think of a retry as \"free.\""
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Exponential Backoff"
+    },
+    {
+      "type": "text",
+      "text": "Instead of:"
+    },
+    {
+      "type": "flowDiagram",
+      "lines": [
+        "fail",
+        " ↓",
+        "retry immediately",
+        " ↓",
+        "fail",
+        " ↓",
+        "retry immediately"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "Wait progressively longer between attempts."
+    },
+    {
+      "type": "text",
+      "text": "Example:"
+    },
+    {
+      "type": "flowDiagram",
+      "lines": [
+        "Attempt 1 → fails",
+        "      ↓",
+        "wait 100 ms",
+        "",
+        "Attempt 2 → fails",
+        "      ↓",
+        "wait 200 ms",
+        "",
+        "Attempt 3 → fails",
+        "      ↓",
+        "wait 400 ms",
+        "",
+        "Attempt 4 → fails",
+        "      ↓",
+        "wait 800 ms"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "Conceptually:"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "delay = base × 2^attempt"
+    },
+    {
+      "type": "text",
+      "text": "For example:"
+    },
+    {
+      "type": "flowDiagram",
+      "lines": ["100ms", "200ms", "400ms", "800ms", "1600ms"]
+    },
+    {
+      "type": "text",
+      "text": "Usually you also put an upper limit on the delay."
+    },
+    {
+      "type": "text",
+      "text": "Example:"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "max delay = 5 seconds"
+    },
+    {
+      "type": "text",
+      "text": "So it doesn't grow forever."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Jitter"
+    },
+    {
+      "type": "text",
+      "text": "Exponential backoff alone isn't always enough."
+    },
+    {
+      "type": "text",
+      "text": "Imagine 100,000 clients receive the same failure at:"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "12:00:00.000"
+    },
+    {
+      "type": "text",
+      "text": "They all calculate:"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "retry after 100ms"
+    },
+    {
+      "type": "text",
+      "text": "Then they all retry around:"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "12:00:00.100"
+    },
+    {
+      "type": "text",
+      "text": "Boom. Another traffic spike."
+    },
+    {
+      "type": "text",
+      "text": "This is called a synchronized retry problem."
+    },
+    {
+      "type": "text",
+      "text": "Jitter adds randomness to the delay."
+    },
+    {
+      "type": "text",
+      "text": "Instead of:"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Everyone retries after exactly 400ms"
+    },
+    {
+      "type": "text",
+      "text": "You might get:"
+    },
+    {
+      "type": "flowDiagram",
+      "lines": [
+        "Client A → 327ms",
+        "Client B → 412ms",
+        "Client C → 376ms",
+        "Client D → 451ms",
+        "..."
+      ]
+    },
+    {
+      "type": "text",
+      "text": "Now the retries are spread over time."
+    },
+    {
+      "type": "text",
+      "text": "Conceptually:"
+    },
+    {
+      "type": "flowDiagram",
+      "lines": [
+        "Exponential backoff",
+        "        +",
+        "Random jitter",
+        "        =",
+        "Much safer retry behavior"
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Maximum Retry Attempts"
+    },
+    {
+      "type": "text",
+      "text": "Never assume:"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "while request fails:\n    retry()"
+    },
+    {
+      "type": "text",
+      "text": "That can create an infinite retry loop."
+    },
+    {
+      "type": "text",
+      "text": "Instead:"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Maximum attempts = 3"
+    },
+    {
+      "type": "text",
+      "text": "Example:"
+    },
+    {
+      "type": "flowDiagram",
+      "lines": [
+        "Attempt 1",
+        "   ↓ fail",
+        "Attempt 2",
+        "   ↓ fail",
+        "Attempt 3",
+        "   ↓ fail",
+        "STOP"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "The system should eventually give up and return an error."
+    },
+    {
+      "type": "text",
+      "text": "Retries are a mechanism for recovering from temporary failures, not a guarantee that every request must eventually succeed."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Timeouts Are Essential"
+    },
+    {
+      "type": "text",
+      "text": "A retry without a timeout can be dangerous."
+    },
+    {
+      "type": "text",
+      "text": "Imagine:"
+    },
+    {
+      "type": "flowDiagram",
+      "lines": [
+        "Request",
+        "   ↓",
+        "Waiting for database",
+        "   ↓",
+        "30 seconds",
+        "   ↓",
+        "Still waiting"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "Now the client retries."
+    },
+    {
+      "type": "text",
+      "text": "You might have:"
+    },
+    {
+      "type": "flowDiagram",
+      "lines": [
+        "Original request → still running",
+        "Retry request    → running"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "You have doubled the work."
+    },
+    {
+      "type": "text",
+      "text": "Always think about:"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Request timeout",
+        "Connection timeout",
+        "Database query timeout",
+        "Upstream service timeout",
+        "Retry delay",
+        "Total operation deadline"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "A useful mental model is:"
+    },
+    {
+      "type": "flowDiagram",
+      "lines": [
+        "Total request deadline",
+        "        │",
+        "        ├── attempt 1",
+        "        ├── backoff",
+        "        ├── attempt 2",
+        "        ├── backoff",
+        "        └── attempt 3"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "All attempts should fit within a reasonable overall deadline."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Not Every Error Should Be Retried"
+    },
+    {
+      "type": "text",
+      "text": "This is one of the most important retry rules."
+    },
+    {
+      "type": "heading",
+      "level": 4,
+      "text": "Usually potentially retryable"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Network timeout",
+        "Connection reset",
+        "Temporary 503",
+        "Temporary infrastructure failure",
+        "Some 429 responses",
+        "Some transient database errors"
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 4,
+      "text": "Usually NOT retryable"
+    },
+    {
+      "type": "list",
+      "items": [
+        "400 Bad Request",
+        "401 Unauthorized",
+        "403 Forbidden",
+        "404 Not Found",
+        "Invalid input",
+        "Validation failure",
+        "Business-rule failure"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "Retrying an invalid request usually doesn't fix anything."
+    },
+    {
+      "type": "text",
+      "text": "For example:"
+    },
+    {
+      "type": "code",
+      "language": "http",
+      "code": "POST /users\n\nemail = \"not-an-email\""
+    },
+    {
+      "type": "text",
+      "text": "If the server returns:"
+    },
+    {
+      "type": "code",
+      "language": "http",
+      "code": "400 Bad Request"
+    },
+    {
+      "type": "text",
+      "text": "Retrying 5 times doesn't magically make the email valid."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Be Careful With POST and Side Effects"
+    },
+    {
+      "type": "text",
+      "text": "This is where idempotency becomes important."
+    },
+    {
+      "type": "text",
+      "text": "Suppose:"
+    },
+    {
+      "type": "code",
+      "language": "http",
+      "code": "POST /payments"
+    },
+    {
+      "type": "text",
+      "text": "The server receives the request:"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Charge customer ₹1000"
+    },
+    {
+      "type": "text",
+      "text": "The payment succeeds."
+    },
+    {
+      "type": "text",
+      "text": "But the response gets lost because of a network failure."
+    },
+    {
+      "type": "text",
+      "text": "The client sees:"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "TIMEOUT"
+    },
+    {
+      "type": "quote",
+      "text": "The request failed. I'll retry."
+    },
+    {
+      "type": "text",
+      "text": "Now POST /payments runs again."
+    },
+    {
+      "type": "text",
+      "text": "Potentially:"
+    },
+    {
+      "type": "flowDiagram",
+      "lines": [
+        "₹1000 charged",
+        "+",
+        "₹1000 charged again",
+        "=",
+        "₹2000 charged"
+      ]
+    },
+    {
+      "type": "text",
+      "text": "The original operation may have succeeded even though the client didn't receive the response."
+    }
+  ]
+}

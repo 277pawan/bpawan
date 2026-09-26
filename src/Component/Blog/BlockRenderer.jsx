@@ -237,6 +237,27 @@ function AccordionBlock({ block }) {
   );
 }
 
+function FlowDiagramBlock({ block }) {
+  const text =
+    block.text ??
+    (Array.isArray(block.lines) ? block.lines.join("\n") : "");
+  if (!text.trim()) return null;
+  return (
+    <figure className="my-8">
+      <div className="overflow-x-auto rounded-xl border border-white/10 bg-black/40 px-6 py-8 flex justify-center">
+        <pre className="m-0 text-sm md:text-base leading-relaxed">
+          <code className="font-mono text-gray-100 whitespace-pre">{text}</code>
+        </pre>
+      </div>
+      {block.caption && (
+        <figcaption className="mt-2 text-center text-sm text-gray-500">
+          {block.caption}
+        </figcaption>
+      )}
+    </figure>
+  );
+}
+
 function CodeBlock({ block }) {
   return (
     <figure className="my-8">
@@ -314,6 +335,9 @@ function Block({ block, articleSlug }) {
       );
     case "code":
       return <CodeBlock block={block} />;
+    case "flowDiagram":
+    case "flow":
+      return <FlowDiagramBlock block={block} />;
     case "jsonTree":
     case "objectTree":
       return <JsonTreeBlock block={block} />;
