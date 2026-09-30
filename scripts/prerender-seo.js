@@ -69,10 +69,11 @@ function renderPage(template, { title, description, keywords, url, image, ogType
     .map((data) => `<script type="application/ld+json">${JSON.stringify(data)}</script>`)
     .join("\n    ");
   html = html.replace("</head>", `    ${ld}\n  </head>`);
-  html = html.replace(
-    /<div id="root">[\s\S]*?<\/div>\s*(?=<script type="application\/ld\+json">|<script)/,
-    `<div id="root">\n${body}\n    </div>\n    `
-  );
+  const bodySlot = '<template id="seo-route-body"></template>';
+  if (!html.includes(bodySlot)) {
+    throw new Error("prerender-seo: missing route body template slot in build/index.html");
+  }
+  html = html.replace(bodySlot, body);
   html = html.replace(
     /(href|src)="(?!https?:|\/|#|data:)([^"]+)"/g,
     '$1="/$2"'
