@@ -1,21 +1,13 @@
-/**
- * Loads all article JSON from ./articles (webpack require.context at build time).
- * Add a new file: articles/your-slug.json — no route or page code required.
- */
+const articleModules = import.meta.glob("./articles/*.json", {
+  eager: true,
+  import: "default",
+});
 
-const articleContext = require.context("./articles", false, /\.json$/);
-
-const articles = articleContext
-  .keys()
-  .filter((key) => !key.includes("article.template"))
-  .map((key) => {
-    const mod = articleContext(key);
-    const data = mod.default ?? mod;
-    const slugFromFile = key.replace(/^\.\//, "").replace(/\.json$/, "");
-    return {
-      ...data,
-      slug: data.slug || slugFromFile,
-    };
+const articles = Object.entries(articleModules)
+  .filter(([key]) => !key.includes("article.template"))
+  .map(([key, data]) => {
+    const slugFromFile = key.replace(/^\.\/articles\//, "").replace(/\.json$/, "");
+    return { ...data, slug: data.slug || slugFromFile };
   })
   .filter((a) => a.slug && a.title && Array.isArray(a.blocks));
 

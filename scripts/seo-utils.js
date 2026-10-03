@@ -1,10 +1,11 @@
 const fs = require("fs");
 const path = require("path");
 
-const origin = (process.env.REACT_APP_SITE_URL || "https://two77pawan.onrender.com").replace(
-  /\/$/,
-  ""
-);
+const origin = (
+  process.env.VITE_SITE_URL ||
+  process.env.REACT_APP_SITE_URL ||
+  "https://two77pawan.onrender.com"
+).replace(/\/$/, "");
 
 const root = path.join(__dirname, "..");
 const articlesDir = path.join(root, "src/content/blog/articles");

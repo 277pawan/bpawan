@@ -663,7 +663,7 @@ function Block({ block, articleSlug }) {
     case "related":
       return null;
     default:
-      if (process.env.NODE_ENV === "development") {
+      if (import.meta.env.DEV) {
         return (
           <p className="my-4 text-amber-400 text-sm font-mono">
             Unknown block type: {block.type}

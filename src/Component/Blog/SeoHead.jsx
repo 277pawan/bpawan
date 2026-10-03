@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 const SITE_NAME = "Pawan Bisht";
 const DEFAULT_ORIGIN =
-  process.env.REACT_APP_SITE_URL || "https://two77pawan.onrender.com";
+  import.meta.env.VITE_SITE_URL || "https://two77pawan.onrender.com";
 
 function upsertMeta(attr, key, content) {
   if (!content) return;

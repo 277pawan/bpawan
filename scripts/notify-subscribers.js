@@ -2,18 +2,23 @@ const fs = require("fs");
 const path = require("path");
 
 const slug = process.argv[2];
-const notifyUrl = process.env.NOTIFY_URL || process.env.REACT_APP_BLOG_NOTIFY_URL || "";
-const origin = (process.env.REACT_APP_SITE_URL || "https://two77pawan.onrender.com").replace(
-  /\/$/,
-  ""
-);
+const notifyUrl =
+  process.env.NOTIFY_URL ||
+  process.env.VITE_BLOG_NOTIFY_URL ||
+  process.env.REACT_APP_BLOG_NOTIFY_URL ||
+  "";
+const origin = (
+  process.env.VITE_SITE_URL ||
+  process.env.REACT_APP_SITE_URL ||
+  "https://two77pawan.onrender.com"
+).replace(/\/$/, "");
 
 if (!slug) {
-  console.error("Usage: NOTIFY_URL=... npm run notify -- <slug>");
+  console.error("Usage: VITE_BLOG_NOTIFY_URL=... npm run notify -- <slug>");
   process.exit(1);
 }
 if (!notifyUrl) {
-  console.error("Set NOTIFY_URL");
+  console.error("Set NOTIFY_URL or VITE_BLOG_NOTIFY_URL");
   process.exit(1);
 }
 

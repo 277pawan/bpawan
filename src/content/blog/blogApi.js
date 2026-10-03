@@ -1,7 +1,7 @@
 export const BLOG_API = {
-  likeUrl: process.env.REACT_APP_BLOG_LIKE_URL || "",
-  likeCountUrl: process.env.REACT_APP_BLOG_LIKE_COUNT_URL || "",
-  subscribeUrl: process.env.REACT_APP_BLOG_SUBSCRIBE_URL || "",
+  likeUrl: import.meta.env.VITE_BLOG_LIKE_URL || "",
+  likeCountUrl: import.meta.env.VITE_BLOG_LIKE_COUNT_URL || "",
+  subscribeUrl: import.meta.env.VITE_BLOG_SUBSCRIBE_URL || "",
 };
 
 const VISITOR_KEY = "blog-visitor-id";

@@ -1,17 +1,19 @@
 # Engineering blog — JSON content guide
 
-Add articles **without new React pages**. Drop a file in `src/content/blog/articles/your-slug.json`. Webpack picks it up at build time; routes and SEO are automatic.
+Add articles **without new React pages**. Drop a file in `src/content/blog/articles/your-slug.json`. Vite picks it up at build time; routes and SEO are automatic.
 
 **Quick start**
 
 1. Copy `articles/article.template.json` → `articles/my-topic.json`
 2. Set `slug`, `title`, `description`, `publishedAt`, and `blocks`
-3. Run `npm start` → open `/engineering/my-topic`
+3. Run `npm run dev` → open `/engineering/my-topic`
 
 **Full block showcase:** `/engineering/cap-theorem-block-demo` (every block type + video).
 4. Before deploy: `npm run build` (regenerates `public/sitemap.xml`)
 
-Set production URL (optional): `REACT_APP_SITE_URL=https://your-domain.com`
+Set the production URL or optional blog endpoints with Vite-prefixed variables, for example:
+`VITE_SITE_URL=https://your-domain.com`, `VITE_BLOG_LIKE_URL`, `VITE_BLOG_LIKE_COUNT_URL`,
+`VITE_BLOG_SUBSCRIBE_URL`, and `VITE_BLOG_NOTIFY_URL`.
 
 ---
 

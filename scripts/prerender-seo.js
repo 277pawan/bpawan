@@ -1,5 +1,5 @@
 /**
- * After `react-scripts build`, write real HTML for every public route.
+ * After `vite build`, write real HTML for every public route.
  * New article/project JSON files are included automatically on the next build.
  */
 const fs = require("fs");
@@ -23,7 +23,10 @@ const {
 const buildDir = path.join(__dirname, "../build");
 const indexFile = path.join(buildDir, "index.html");
 const fallbackImage = `${origin}/20230521_084703.jpg`;
-const googleVerification = process.env.REACT_APP_GOOGLE_SITE_VERIFICATION || "";
+const googleVerification =
+  process.env.VITE_GOOGLE_SITE_VERIFICATION ||
+  process.env.REACT_APP_GOOGLE_SITE_VERIFICATION ||
+  "";
 
 function upsertMeta(html, attr, key, content) {
   if (!content) return html;
